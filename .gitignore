@@ -3,6 +3,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # Distribution / packaging
 .Python
@@ -56,3 +57,7 @@ img/
 media/*
 
 venv
+
+db.sqlite3
+.DS_Store
+
