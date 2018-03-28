@@ -56,3 +56,6 @@ img/
 media/*
 
 venv
+
+db.sqlite3
+.DS_Store
