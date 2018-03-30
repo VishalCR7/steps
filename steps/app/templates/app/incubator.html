@@ -3,6 +3,8 @@
 <head>
 	{% load static %}
 	<title>S.T.E.P.S</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{% static 'app/css/main.css' %}">
 	<link href="{% static 'app/css/font-awesome.min.css' %}" rel="stylesheet">
 	<link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
@@ -57,18 +59,58 @@
 </div>
 </nav>
 </header>
+	
 <div class="overlay-toggle">
-	<div class="overlay"></div>
-	<div class="overlay-options">
-		<div>
-			<ul>
-				<li><h3>Option1</h3></li>
-				<li><h3>Option1</h3></li>
-				<li><h3>Option1</h3></li>
-				<li><h3>Option1</h3></li>
-			</ul>
+	<div class="message-container">
+		<h3 style="color: white;">Send a message</h3>
+	    <div class="row">
+			<div class="col-sm-4 col-md-4">
+	            <div class="panel panel-default">
+	                <div class="panel-body">                
+	                    <form accept-charset="UTF-8" action="" method="POST">
+	                        <textarea class="form-control counted" name="message" placeholder="Type in your message" rows="5" style="margin-bottom:10px;"></textarea>
+	                        <button class="btn btn-info" type="submit">Post New Message</button>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
 		</div>
 	</div>
+
+	<div class="event-container">
+		<h3 style="color: white;">Add an event</h3>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form accept-charset="UTF-8" action="" method="POST">
+	                        <input class="form-control counted" name="message" placeholder="Title" rows="5" style="margin-bottom:10px;"></input>
+	                        <textarea class="form-control counted" name="message" placeholder="Type in your message" rows="5" style="margin-bottom:10px;"></textarea>
+	                        <input type="file">
+	                        <button class="btn btn-info" type="submit">Add new event</button>
+						</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+
+	<div class="contact-container">
+		<h3 style="color: white;">Contact StartUp Name</h3>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						<textarea class="form-control counted" name="message" placeholder="Send a greeting" rows="5" style="margin-bottom:10px;"></textarea>
+	                    <button class="btn btn-info" type="submit">Connect</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="overlay"></div>
 </div>
 <div class="profile">
 	<div class="cover-image col-sm-12">
@@ -90,15 +132,15 @@
 	</p>
 
 	<div class="col-sm-6 incubated col-sm-offset-1">
-		<h3 >Incubator</h3>
+		<h3 >Incubated Startups</h3>
 		<div class="newscard">
 			<div class="newscard-image col-sm-offset-1" data-toggle="tooltip" title="View Profile">
 			</div>
 			<div class="newscard-body col-sm-offset-1">
 				<h5 class="newscard-title">Incubated StartUp Name</h5>
 				<div>
-					<button class="btn-startup">Message</button>
-					<button class="btn-startup">View activity</button>
+					<button class="btn-startup btn-message">Message</button>
+					<button class="btn-startup btn-activity">View activity</button>
 				</div>
 			</div>
 		</div>
@@ -115,7 +157,9 @@
 					<h5 class="newscard-title"> Personilzed News Title </h5>
 					<p class="newscard-text">description of the news</p>
 				</div>
-				<div class="glyphicon glyphicon-chevron-down view-more col-sm-offset-4" data-toggle="tooltip" title="Know More"></div>
+				<div class="view-more col-sm-offset-4" data-toggle="tooltip" title="Know More">
+					<i class="material-icons">arrow_drop_down</i>
+				</div>
 			</div>
 			<br>
 
@@ -126,7 +170,9 @@
 					<h5 class="newscard-title">Personilzed News Titl</h5>
 					<p class="newscard-text">description of the ne</p>
 				</div>
-				<div class="glyphicon glyphicon-chevron-down view-more col-sm-offset-4" data-toggle="tooltip" title="Know More"></div>
+				<div class="view-more col-sm-offset-4" data-toggle="tooltip" title="Know More">
+					<i class="material-icons">arrow_drop_down</i>
+				</div>
 			</div>
 			<br>
 
@@ -137,14 +183,16 @@
 					<h5 class="newscard-title">Personilzed News Title</h5>
 					<p class="newscard-text">description of the news</p>
 				</div>
-				<div class="glyphicon glyphicon-chevron-down view-more col-sm-offset-4" data-toggle="tooltip" title="Know More"></div>
+				<div class="view-more col-sm-offset-4" data-toggle="tooltip" title="Know More">
+					<i class="material-icons">arrow_drop_down</i>
+				</div>
 			</div>
 			<br>
 
 			<div class="add-event">
 				<h4>Add a new Event</h4>
-				<div class="btn-add_event">
-					<p class="glyphicon glyphicon-plus"></p>
+				<div class="btn-add_event btn-event">
+					<i class="material-icons">add</i>
 				</div>
 			</div>
 		</div>
@@ -217,7 +265,9 @@
 		myLatLng = {lat:20.2255431, lng: 85.74091600000001};
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: myLatLng,
-			zoom: 8
+			zoom: 8,
+			disableDefaultUI: true,
+			zoomControl: true
 		});
 
 		var marker = new google.maps.Marker({
@@ -232,5 +282,42 @@
 <script src="{% static 'app/js/bootstrap.min.js' %}" type="text/javascript"></script>
 <!-- PAGE LEVEL SCRIPTS -->
 <script src="{% static 'app/js/layout.js' %}" type="text/javascript"></script>
+
+<script>
+
+	$(document).ready(function(){
+		// show message box
+		$('.btn-message').click(function(){
+			$('.overlay-toggle').show();
+			$('.message-container').show();
+		});
+
+		// show activity box
+		$('.btn-activity').click(function(){
+			$('.overlay-toggle').show();
+		});
+
+		// add event box
+		$('.btn-event').click(function(){
+			$('.overlay-toggle').show();
+			$('.event-container').show();
+		});
+
+		// connect with box
+		$('.btn-contact').click(function(){
+			$('.overlay-toggle').show();
+			$('.contact-container').show();
+		});
+
+		// hide overlay
+		$('.overlay').click(function(){
+			$('.overlay-toggle').hide();
+			$('.message-container').hide();
+			$('.event-container').hide();
+			$('.contact-container').hide();
+		});
+	});
+
+</script>
 
 </html>

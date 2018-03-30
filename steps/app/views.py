@@ -77,36 +77,28 @@ def dashboard(request):
     if hasattr(user, 'userprofile'):
         incubators = user.incubator_members.all()
         startups = user.startup_members.all()
-        userprofile = user.userprofile
+        profile = user.userprofile
         context = {
             'incubators': incubators,
             'startups': startups,
-            'userprofile': userprofile,
+            'profile': profile,
             'feed': feed,
             'type': 'U'
         }
         print startups
         return render(request,'app/dashboard.html', context)
     if hasattr(user, 'incubator'):
-        incubators = user.incubator_members.all()
-        startups = user.startup_members.all()
-        userprofile = user.userprofile
+        profile = user.incubator
         context = {
-            'incubators': incubators,
-            'startups': startups,
-            'userprofile': userprofile,
+            'profile': profile,
             'feed': feed,
             'type': 'I'
         }
         return render(request, 'app/dashboard.html')
     if hasattr(user, 'startup'):
-        incubators = user.incubator_members.all()
-        startups = user.startup_members.all()
-        userprofile = user.userprofile
+        profile = user.startup
         context = {
-            'incubators': incubators,
-            'startups': startups,
-            'userprofile': userprofile,
+            'profile': profile,
             'feed': feed,
             'type': 'S'
         }
@@ -144,12 +136,110 @@ def profile(request, id):
         return render(request, "main/startup.html", context)
 
 
+
+def incubatorid():
+    name = 'INC'
+    try:
+        incubator = Incubator.objects.all()[Incubator.objects.count()-1]
+        if incubator:
+            lst_id = int((incubator.user.username).split(name)[1])
+            return (name + str(lst_id + 1).zfill(8)).replace(' ', '0')
+        else:
+            return name + '00000001'
+    except AssertionError:
+        return name + '00000001'
+
+
+def startupid():
+    name = 'STP'
+    try:
+        startup = Startup.objects.all()[Incubator.objects.count()-1]
+        if incubator:
+            lst_id = int((startup.user.username).split(name)[1])
+            return (name + str(lst_id + 1).zfill(8)).replace(' ', '0')
+        else:
+            return name + '00000001'
+    except AssertionError:
+        return name + '00000001'
+
+
 def incubator_request(request):
+    form = IncubatorRequestForm()
+    fileform = IncubatorFileForm()
+    locationform = LocationForm()
+    context = {
+        'form': form,
+        'fileform': fileform,
+        'status': 'get',
+        'locationform':locationform
+    }
+    if request.method == "POST":
+        form = IncubatorRequestForm(request.POST)
+        fileform = IncubatorFileForm(request.POST,request.FILES)
+        locationform = LocationForm(request.POST)
+        if form.is_valid() and fileform.is_valid() and locationform.is_valid():
+            username = incubatorid()
+            location = locationform.save()
+            incubator = form.save(commit=False)
+            user = User.objects.create_user(username=username,password=username,email=request.POST['email'])
+            incubator.user = user
+            incubator.request_user = request.user
+            incubator.location = location
+            incubator.save()
+            file = fileform.save(commit=False)
+            file.incubator = incubator
+            file.save()
+            context = {
+                status: 'success'
+            }
+        else:
+            context = {
+                'status': 'error',
+                'form': form,
+                'fileform': fileform,
+                'locationform': locationform
+            }
+    return render(request, 'app/incubator_request.html', context)
+
+
+
+def startup_request(request):
+    form = IncubatorRequestForm()
+    fileform = IncubatorFileForm()
+    locationform = LocationForm()
+    context = {
+        'form': form,
+        'fileform': fileform,
+        'locationform':locationform,
+        'status': 'get'
+    }
+    if request.method == "POST":
+        form = StartupRequestForm(request.POST)
+        fileform = StartupFileForm(request.POST,request.FILES)
+        locationform = LocationForm(request.POST)
+        if form.is_valid() and fileform.is_valid():
+            username = startupid()
+            location = locationform.save()
+            startup = form.save(commit=False)
+            user = User.objects.create_user(username=username,password=username,email=request.POST['email'])
+            startup.user = user
+            startup.request_user = request.user
+            startup.location = location
+            startup.save()
+            file = fileform.save(commit=False)
+            file.startup = startup
+            file.save()
+            context = {
+                status: 'success'
+            }
+        else:
+            context = {
+                'status': 'error',
+                'form': form,
+                'fileform': fileform,
+                'locationform':locationform
+            }
     return render(request, 'app/incubator_request.html')
-
-
-def incubator_request(request):
-    return render(request, 'app/startup_request.html')
 
 
 def incubator(request):
