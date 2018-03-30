@@ -26,25 +26,30 @@ ul{
 	z-index: 2;
 }
 .cover-image{
-	background-image: url(./image/cover.jpg);
+	background-image: url(../img/cover.jpg);
 	background-size: cover;
 	background-position: center;
-	height: 300px;
+	height: 400px;
 }
 .profile-image{
 	width: 200px;
 	height: 200px;
 	position: absolute;
-	top:200px;
+	top:290px;
 	z-index: 2;
 	border-radius: 50%;
-	background-image: url(./image/profile.jpg);
+	border: 5px solid white;
+	background-image: url(../img/profile.jpg);
 	background-size: cover;
 	background-position: center;
 }
-.navbar{
+.activitybar{
 	height: 50px;
 	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25);
+}
+
+.activitybar a{
+	color: blue;
 }
 .list-inline{
 	display: flex;
@@ -130,7 +135,7 @@ ul li a:hover::after{
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
-	background-image: url(./image/profile.jpg);
+	background-image: url(../img/profile.jpg);
 	background-size: cover;
 	background-position: center;
 }
@@ -148,7 +153,7 @@ ul li a:hover::after{
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	background-image: url(./image/profile.jpg);
+	background-image: url(../img/profile.jpg);
 	background-size: cover;
 	background-position: center;
 }
