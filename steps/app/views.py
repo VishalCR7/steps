@@ -104,13 +104,12 @@ def dashboard(request):
             'feed': feed,
             'type': 'S'
         }
-        print profile.members.all()
         return render(request, 'app/startup.html', context)
 
 
 @login_required(login_url='/')
-def profile(request, username):
-    user  = get_object_or_404(User, username=username)
+def profile(request, id):
+    user  = get_object_or_404(User, pk=id)
     if hasattr(user, 'userprofile'):
         profile = get_object_or_404(UserProfile, user=user)
         context = {
@@ -118,7 +117,7 @@ def profile(request, username):
             'userp': user,
             'type': 'U'
         }
-        return render(request, "app/userprofile.html", context)
+        return render(request, "main/userprofile.html", context)
     if hasattr(user, 'incubator'):
         profile = get_object_or_404(Incubator, user=user)
         posts = profile.posts.all()
@@ -126,9 +125,9 @@ def profile(request, username):
             'profile': profile,
             'userp': user,
             'type': 'I',
-            'posts': posts
+            'posts': posts,
         }
-        return render(request, "app/incubator_profile.html", context)
+        return render(request, "main/incubator.html", context)
     if hasattr(user, 'startup'):
         profile = get_object_or_404(Startup, user=user)
         context = {
@@ -136,7 +135,7 @@ def profile(request, username):
             'userp': user,
             'type': 'S'
         }
-        return render(request, "app/startup_profile.html", context)
+        return render(request, "main/startup.html", context)
 
 
 
@@ -245,27 +244,11 @@ def startup_request(request):
     return render(request, 'app/incubator_request.html', context)
 
 
-def incubator_update(request):
-    form = IncubatorForm()
-    imageform = IncubatorImageForm()
-    contactform = IncubatorContactForm()
-    achievementform = IncubatorAchievementForm()
-    socialform = IncubatorSocialForm()
-    context = {
-        'form':form,
-        'imageform':  imageform,
-        'contactform': contactform,
-        'achievementform': achievementform,
-        'socialform': socialform
-    }
+def incubator(request):
+    return render(request, 'app/incubator.html')
 
-    return render(request, 'app/profile_update.html', context)
-
-def startup_update(request):
-    return render(request, 'app/profile_update.html')
-
-def user_update(request):
-    return render(request, 'app/profile_update.html')
+def startup(request):
+    return render(request, 'app/startup.html')
 
 def leaderboard(request):
     return render(request, 'app/leaderboard.html')
@@ -355,6 +338,9 @@ def user_update(request):
             'profileform': profileform
         }
         return render(request, 'app/editProfile.html', context)
+
+
+
 
 
 
