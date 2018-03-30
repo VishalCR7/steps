@@ -133,31 +133,31 @@
 	</div>
 </div>
 <div class="profile-info col-sm-12">
-	<h2 class="col-sm-offset-1">Name of Startup</h2>
+	<h2 class="col-sm-offset-1">{{profile.name}}</h2>
 	<p class="col-sm-10 col-sm-offset-1">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		{{ profile.description }}
 	</p>
 
 <div class="info-startup">
 	<div class="col-sm-3 incubated ">
 		<h3 >Incubator</h3>
+		{% for incubator in profile.incubators.all %}
 		<div class="newscard">
-			<div class="newscard-image col-sm-offset-1" data-toggle="tooltip" title="View Profile">
-			</div>
 			<div class="newscard-body col-sm-offset-1">
-				<h5 class="newscard-title">Incubator Name</h5>
+				<h5 class="newscard-title">{{incubator.name}}</h5>
 				<div>
 					<button class="btn-startup btn-message">Message</button>
 					<button class="btn-startup btn-activity">View activites</button>
 				</div>
 			</div>
 		</div>
+		{% endfor %}
 	</div>
 
 <hr>
 
 		<div class="about-startup">
-			<h3>About Startup_name</h3>
+			<h3>About {{profile.name}}</h3>
 			<input type="text" placeholder="Add about YourSelf" class="about-input">
 			<p class="col-sm-10 col-sm-offset-1">
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -211,21 +211,12 @@
 			<div>
 				<h3>Members</h3>
 				<ul>
+					{% for member in profile.members.all %}
 					<li class="startup-list">
 						<div class="startup-logo"></div>
-						<p class="col-sm-offset-1">Member Name }}</p>
+						<p class="col-sm-offset-1">member.username</p>
 					</li>
-
-					<li class="startup-list">
-						<div class="startup-logo"></div>
-						<p class="col-sm-offset-1"> Member Name }}</p>
-					</li>
-
-					<li class="startup-list">
-						<div class="startup-logo"></div>
-						<p class="col-sm-offset-1"> Member Name }}</p>
-					</li>
-
+					{% endfor %}
 					<li class="search-startups"><p>View More...</p></li>
 				</ul>
 			</div>
