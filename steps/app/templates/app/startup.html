@@ -201,7 +201,7 @@
 					{% for member in profile.members.all %}
 					<li class="startup-list">
 						<div class="startup-logo"></div>
-						<p class="col-sm-offset-1">member.username</p>
+						<p class="col-sm-offset-1">{{member.username}}</p>
 					</li>
 					{% endfor %}
 					<li class="search-startups"><p>View More...</p></li>

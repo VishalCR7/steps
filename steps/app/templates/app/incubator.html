@@ -119,7 +119,7 @@
 
 	<div class="col-sm-6 incubated col-sm-offset-1">
 		<h3 >Incubated Startups</h3>
-		{% for startup in profile.incubated_startup.startup %}
+		{% for startup in profile.incubated_startup.all %}
 		<div class="newscard">
 			<div class="newscard-image col-sm-offset-1" data-toggle="tooltip" title="View Profile">
 			</div>
