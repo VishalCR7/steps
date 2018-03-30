@@ -1,3 +1,26 @@
+.bot-container{
+  width: 800px;
+  height: 500px;
+  z-index:999;
+  position: fixed;
+  top:150px;
+  margin-left: 20vw;
+  display: none;
+}
+.giffy-container{
+  z-index: 1000;
+  position: fixed;
+  top:85vh;
+  right: 10px;
+  cursor: pointer;
+}
+.giffy-container img{
+  width: 100px;
+  height: auto;
+}
+.btn-close{
+  cursor: pointer;
+}
 .chat_window {
   position: absolute;
   width: calc(100% - 20px);
