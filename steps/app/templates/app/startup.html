@@ -167,30 +167,13 @@
 					<input type="input" placeholder="Search for startups">
 				</div>
 				<ul>
+					{% for incubator in recommended %}
 					<li class="startup-list startup_list-items">
 						<div class="startup-logo"></div>
-						<p class="col-sm-offset-1"> Incubators Name }}</p>
+						<p class="col-sm-offset-1"> {{incubator.name}}</p>
 						<button class="col-sm-offset-3 btn-contact">Contact</button>
 					</li>
-
-					<li class="startup-list startup_list-items">
-						<div class="startup-logo"></div>
-						<p class="col-sm-offset-1">StartUp Name }}</p>
-						<button class="col-sm-offset-3 btn-contact">Contact</button>
-					</li>
-
-					<li class="startup-list startup_list-items">
-						<div class="startup-logo"></div>
-						<p class="col-sm-offset-1"> StartUp Name }}</p>
-						<button class="col-sm-offset-3 btn-contact">Contact</button>
-					</li>
-
-					<li class="startup-list startup_list-items">
-						<div class="startup-logo"></div>
-						<p class="col-sm-offset-1"> StartUp Name }}</p>
-						<button class="col-sm-offset-3 btn-contact">Contact</button>
-					</li>
-
+					{% endfor %}
 					<li class="search-startups"><p>Search for Incubators</p></li>
 				</ul>
 			</div>

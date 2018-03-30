@@ -19,6 +19,8 @@ from .models import *
 import datetime
 from django.db.models import Q
 from django.utils import timezone
+from math import cos, asin, sqrt
+
 try:
     from django.utils import simplejson as json
 except ImportError:
@@ -83,7 +85,8 @@ def dashboard(request):
             'startups': startups,
             'profile': profile,
             'feed': feed,
-            'type': 'U'
+            'type': 'U',
+            'recommended': recommend_incubator(profile) 
         }
         print startups
         return render(request,'app/dashboard.html', context)
@@ -102,7 +105,8 @@ def dashboard(request):
         context = {
             'profile': profile,
             'feed': feed,
-            'type': 'S'
+            'type': 'S',
+            'recommended': recommend_incubator(profile) 
         }
         return render(request, 'app/startup.html', context)
 
@@ -256,6 +260,96 @@ def leaderboard(request):
 def comparator(request):
     return render(request, 'app/comparator.html')
 
+def recommend_incubator(startup):
+    incu = Incubator.objects.all()
+    d = []
+    for inc in incu:
+        a={}
+        itags = set(inc.tags.all())
+        stags = set(startup.tags.all())
+        common = len(itags & stags)
+        a['name'] = inc.name
+        a['id'] = inc.id
+        a['common'] = common
+        a['obj'] = inc
+        cr = (common/2)+1
+        if common == 0:
+            cr = 0
+        elif cr > 5:
+            cr = 5
+        lat1 = float(inc.location.latitude)
+        lon1 = float(inc.location.longitude)
+        lat2 = float(startup.location.latitude)
+        lon2 = float(startup.location.longitude)
+        p = 0.017453292519943295
+        au = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
+        distance = 12742 * asin(sqrt(au))
+        a['distance'] = distance
+        if distance<=500:
+            dr = (500-distance)/500*5
+        else:
+            dr=0
+        rate = inc.ratings.all()
+        n = len(rate)
+        if n!=0:
+            s=0
+            for rat in rate:
+                s = s+rat
+            av = (s+0.00)/n
+        else:
+            av = 0
+        a['rating'] = av
+        a['sparam'] = int(3*cr+4*dr+5*av)
+        d.append(a)
+    s = sorted(d, key=lambda k: k['sparam'])
+    i = map(lambda k:k['obj'],s)
+    return i[0:5]
+
+
+def recommend_startup(startup):
+    incu = Startup.objects.all()
+    d = []
+    for inc in incu:
+        a={}
+        itags = set(inc.tags.all())
+        stags = set(startup.tags.all())
+        common = len(itags & stags)
+        a['name'] = inc.name
+        a['id'] = inc.id
+        a['common'] = common
+        a['obj'] = inc
+        cr = (common/2)+1
+        if common == 0:
+            cr = 0
+        elif cr > 5:
+            cr = 5
+        lat1 = float(inc.location.latitude)
+        lon1 = float(inc.location.longitude)
+        lat2 = float(startup.location.latitude)
+        lon2 = float(startup.location.longitude)
+        p = 0.017453292519943295
+        au = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
+        distance = 12742 * asin(sqrt(au))
+        a['distance'] = distance
+        if distance<=500:
+            dr = (500-distance)/500*5
+        else:
+            dr=0
+        rate = inc.ratings.all()
+        n = len(rate)
+        if n!=0:
+            s=0
+            for rat in rate:
+                s = s+rat
+            av = (s+0.00)/n
+        else:
+            av = 0
+        a['rating'] = av
+        a['sparam'] = int(3*cr+4*dr+5*av)
+        d.append(a)
+    s = sorted(d, key=lambda k: k['sparam'])
+    i = map(lambda k:k['obj'],s)
+    return i[0:5]
 
 def incubator_update(request):
     user = request.user
