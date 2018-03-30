@@ -130,7 +130,7 @@ def profile(request, username):
             'type': 'I',
             'posts': posts,
         }
-        return render(request, "app/incubator.html", context)
+        return render(request, "app/incubator_profile.html", context)
     if hasattr(user, 'startup'):
         profile = get_object_or_404(Startup, user=user)
         context = {
@@ -138,9 +138,7 @@ def profile(request, username):
             'userp': user,
             'type': 'S'
         }
-        return render(request, "app/startup.html", context)
-
-
+        return render(request, "app/startup_profile.html", context)
 
 def incubatorid():
     name = 'INC'
@@ -246,13 +244,6 @@ def startup_request(request):
             }
     return render(request, 'app/incubator_request.html', context)
 
-
-def incubator(request):
-    return render(request, 'app/incubator.html')
-
-def startup(request):
-    return render(request, 'app/startup.html')
-
 def leaderboard(request):
     return render(request, 'app/leaderboard.html')
 
@@ -260,11 +251,22 @@ def comparator(request):
     s1 = request.GET.get('s1')
     s2 = request.GET.get('s2')
     t = request.GET.get('t')
-    if t == 'incubator':
+    context={}
+    if t == 'I':
         i1 = User.objects.get(username=s1).incubator
         i2 = User.objects.get(username=s2).incubator
-    
-    return render(request, 'app/comparator.html')
+        context = {
+            'profile1' : i1,
+            'profile2' : i2 
+        }
+    elif t == 'S':
+        i1 = User.objects.get(username=s1).startup
+        i2 = User.objects.get(username=s2).startup
+        context = {
+            'profile1' : i1,
+            'profile2' : i2 
+        }
+    return render(request, 'app/comparator.html', context)
 
 def recommend_incubator(startup):
     incu = Incubator.objects.all()

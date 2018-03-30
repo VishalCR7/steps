@@ -50,33 +50,35 @@
 <div class="header-container">	
 <h2> Compare Startups</h2>
 <div class="comparator_name" style="display: flex;">
-	<input type="text" placeholder="Name of Incubator1">
-	<input type="text" placeholder="Name of Incubator2">
-	<button>compare</button>
+  <form method="GET" action="/comparator">
+	<input type="text" placeholder="Name of Incubator1" name="s1">
+	<input type="text" placeholder="Name of Incubator2" name="s2">
+  <input type="text" placeholder="Type I or S" name="t">
+	<button type="submit">compare</button>
 </div>
 </div>
 
 <div class="pricingdiv">
 	<ul class="theplan">
-		<li class="title"><b>Incubator 1</b><br /> Name_Incubator</li>
-		<li><b>Chair Person:</b> name of admin</li>
-		<li><b>Achievements</b> kuch bhi</li>
-		<li><b>Location</b> location</li>
-		<li><b>Field of Expertise</b> science</li>
-		<li><b>No. of Employes</b> 10 </li>
-		<li><b>No. of startup incubated</b> 15</li>
-		<li><a class="pricebutton" href="http://ergonomictrends.com/best-ergonomic-office-chairs-under-300-reviews/" target="_blank" rel="nofollow"><span class="icon-tag"></span> View Profile</a></li>
+		<li class="title"><b>Incubator 1</b><br />{{profile1.name}}</li>
+		<!-- <li><b>Chair Person:</b> name of admin</li>
+		<li><b>Achievements</b> kuch bhi</li> -->
+		<li><b>Location </b>Latitude: {{profile1.location.latitude}}, Longitude: {{profile1.location.longitude}}</li>
+		<li><b>Field of Expertise</b>{% for tag in profile1.tags.all %} {{tag}}, {% endfor %}</li>
+		<li><b>No. of Employes </b>{{profile1.members.all.count}}</li>
+		<li><b>No. of startup incubated </b>{{profile1.incubated_startup.all.count}}</li>
+		<li><a class="pricebutton" href="/profile/{{profile1.user.username}}" target="_blank" rel="nofollow"><span class="icon-tag"></span> View Profile</a></li>
 	</ul>
 
 	<ul class="theplan">
-		<li class="title"><b>Incubator 1</b><br /> Name_Incubator</li>
-		<li><b>Chair Person:</b> name of admin</li>
-		<li><b>Achievements</b> kuch bhi</li>
-		<li><b>Location</b> location</li>
-		<li><b>Field of Expertise</b> science</li>
-		<li><b>No. of Employes</b> 10 </li>
-		<li><b>No. of startup incubated</b> 15</li>
-		<li><a class="pricebutton" href="http://ergonomictrends.com/best-ergonomic-office-chairs-under-300-reviews/" target="_blank" rel="nofollow"><span class="icon-tag"></span> View Profile</a></li>
+		<li class="title"><b>Incubator 2</b><br />{{profile2.name}}</li>
+    <!-- <li><b>Chair Person:</b> name of admin</li>
+    <li><b>Achievements</b> kuch bhi</li> -->
+    <li><b>Location </b>Latitude: {{profile2.location.latitude}}, Longitude: {{profile2.location.longitude}}</li>
+    <li><b>Field of Expertise</b>{% for tag in profile2.tags.all %} {{tag}}, {% endfor %}</li>
+    <li><b>No. of Employes </b>{{profile2.members.all.count}}</li>
+    <li><b>No. of startup incubated </b>{{profile2.incubated_startup.all.count}}</li>
+		<li><a class="pricebutton" href="/profile/{{profile2.user.username}}" target="_blank" rel="nofollow"><span class="icon-tag"></span> View Profile</a></li>
 	</ul>
 
 </div>
