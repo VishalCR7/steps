@@ -2,7 +2,7 @@
 {% block content %}
 {% load static%}
 
-<body>
+<body style="background: url({% static 'app/img/02.jpg' %});background-size: cover;background-position: center;">
 
   <header class="header navbar-fixed-top">
     <nav class="navbar" role="navigation">
@@ -53,7 +53,7 @@
   <form method="GET" action="/comparator">
 	<input type="text" placeholder="Name of Incubator1" name="s1">
 	<input type="text" placeholder="Name of Incubator2" name="s2">
-  <input type="text" placeholder="Type I or S" name="t">
+  <input type="text" placeholder="Type I or S" value="I" name="t" style="display: none;">
 	<button type="submit">compare</button>
 </div>
 </div>
