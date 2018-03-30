@@ -148,44 +148,17 @@
         </div>
         <!--// end row -->
 
-        <div class="row">
-          <!-- Latest Products -->
-
-          <canvas id="myChart" width="100" height="100"></canvas>
-          
+        <div class="row">          
           <div class="col-sm-4 sm-margin-b-50">
-            <div class="margin-b-20">
-              <img class="img-responsive" src="{% static 'app/img/970x647/01.jpg' %}" alt="Latest Products Image">
-            </div>
-            <h4><a href="#">Step 1</a> </h4>
-            <p>Have an idea , Want to team up , Want to work…</p>
-            <a class="link" href="#">Details</a>
+            <canvas id="myChart1" width="100" height="100"></canvas>
           </div>
-          <!-- End Latest Products -->
-
-          <!-- Latest Products -->
           <div class="col-sm-4 sm-margin-b-50">
-            <div class="margin-b-20">
-              <img class="img-responsive" src="{% static 'app/img/970x647/02.jpg' %}" alt="Latest Products Image">
-            </div>
-            <h4><a href="#">Step 2</a> </h4>
-            <p>Find everything on our online dashboard.</p>
-            <a class="link" href="#">Details</a>
+            <canvas id="myChart2" width="100" height="100"></canvas>
           </div>
-          <!-- End Latest Products -->
-
-          <!-- Latest Products -->
           <div class="col-sm-4 sm-margin-b-50">
-            <div class="margin-b-20">
-              <img class="img-responsive" src="{% static 'app/img/970x647/03.jpg' %}" alt="Latest Products Image">
-            </div>
-            <h4><a href="#">Step 3</a> </h4>
-            <p>Get a chance to meet our investors for guidance and funding.</p>
-            <a class="link" href="#">Details</a>
+            <canvas id="myChart3" width="100" height="100"></canvas>
           </div>
-          <!-- End Latest Products -->
         </div>
-        <!--// end row -->
       </div>
     </div>
 
@@ -386,7 +359,63 @@
   <!-- JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
   <!-- chart.js scripts -->
   <script type="text/javascript">
-    new Chart(document.getElementById("myChart"), {
+    new Chart(document.getElementById("myChart1"), {
+      type: 'doughnut',
+      data: {
+        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+        datasets: [
+          {
+            label: "Population (millions)",
+            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+            data: [2478,5267,734,784,433]
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Chart.js Doughnut Chart'
+        },
+        animation: {
+          animateScale: true,
+          animateRotate: true
+        }
+      }
+    });
+
+    new Chart(document.getElementById("myChart2"), {
+      type: 'doughnut',
+      data: {
+        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+        datasets: [
+          {
+            label: "Population (millions)",
+            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+            data: [2478,5267,734,784,433]
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Chart.js Doughnut Chart'
+        },
+        animation: {
+          animateScale: true,
+          animateRotate: true
+        }
+      }
+    });
+
+    new Chart(document.getElementById("myChart3"), {
       type: 'doughnut',
       data: {
         labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
