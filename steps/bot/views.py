@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+import os
 from django.shortcuts import render
 import datetime                                 
 from pytz import timezone                                                                                                          
@@ -12,10 +12,11 @@ from django.views.decorators.csrf import csrf_exempt
 def parser(request):                                                                                                     
     if request.method == "POST":
         print request.POST.get('message')
+        script_dir = os.path.dirname(__file__)
         data = request.POST.get('message').lower()                                                                      
         words = set(data.lower().strip().split())                                                                            
-        json_data = json.load(open('greetings.json'))                                                                   
-        faq_data = json.load(open('faq.json'))
+        json_data = json.load(open(script_dir+'/greetings.json'))                                                                   
+        faq_data = json.load(open(script_dir+'/faq.json'))
         for word in words:
             if word in faq_data.keys():
                 rdata = {

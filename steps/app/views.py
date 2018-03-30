@@ -108,14 +108,12 @@ def dashboard(request):
             'type': 'S',
             'recommended': recommend_incubator(profile) 
         }
-        print recommend_incubator(profile)
-        print profile.members.all()
         return render(request, 'app/startup.html', context)
 
 
 @login_required(login_url='/')
-def profile(request, username):
-    user  = get_object_or_404(User, username=username)
+def profile(request, id):
+    user  = get_object_or_404(User, pk=id)
     if hasattr(user, 'userprofile'):
         profile = get_object_or_404(UserProfile, user=user)
         context = {
@@ -131,9 +129,9 @@ def profile(request, username):
             'profile': profile,
             'userp': user,
             'type': 'I',
-            'posts': posts
+            'posts': posts,
         }
-        return render(request, "app/incubator_profile.html", context)
+        return render(request, "main/incubator.html", context)
     if hasattr(user, 'startup'):
         profile = get_object_or_404(Startup, user=user)
         context = {
@@ -141,7 +139,7 @@ def profile(request, username):
             'userp': user,
             'type': 'S'
         }
-        return render(request, "app/startup_profile.html", context)
+        return render(request, "main/startup.html", context)
 
 
 
@@ -352,3 +350,130 @@ def recommend_startup(startup):
     s = sorted(d, key=lambda k: k['sparam'])
     i = map(lambda k:k['obj'],s)
     return i[0:5]
+
+def incubator_update(request):
+    user = request.user
+    profile = user.incubator
+    form = IncubatorForm(instance=profile)
+    context = {
+        'form':form,
+    }
+    if request.method == 'POST':
+        form = IncubatorForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('app:incubator_update'))
+        else :
+            context = {
+            'form'  : form,
+            }
+    else:
+        form = IncubatorForm(instance=profile)
+        context = {
+            'form'  : form,
+        }
+        return render(request, 'app/profile_update.html', context)
+
+    return render(request, 'app/profile_update.html', context)
+
+def startup_update(request):
+    user = request.user
+    profile = user.startup
+    form = StartupForm(instance=profile)
+    context = {
+        'form':form,
+    }
+    if request.method == 'POST':
+        form = StartupForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('app:startup_update'))
+        else :
+            context = {
+            'form'  : form,
+            }
+    else:
+        form = IncubatorForm(instance=profile)
+        context = {
+            'form'  : form,
+        }
+        return render(request, 'app/profile_update.html', context)
+
+    return render(request, 'app/profile_update.html', context)
+
+def user_update(request):
+    if request.method == 'POST':
+        user = request.user
+        profile = UserProfile.objects.get(user=user)
+        userform = UserForm(request.POST, instance=user)
+        profileform = UserProfileForm(request.POST, instance=profile)
+        if userform.is_valid() and profileform.is_valid():
+            userform.save()
+            f = profileform.save(commit=False)
+            f.user = request.user
+            f.save()
+            context = {
+            'userform'  : userform,
+            'profileform': profileform
+            }
+            return HttpResponseRedirect(reverse('app:user_update'))
+        else :
+            context = {
+            'userform'  : userform,
+            'profileform': profileform
+            }
+            return render(request, 'app/editProfile.html', context)
+    else:
+        profile = UserProfile.objects.get(user = request.user)
+        userform = UserForm(instance=request.user)
+        profileform = UserProfileForm(instance=profile)
+        context = {
+            'userform'  : userform,
+            'profileform': profileform
+        }
+        return render(request, 'app/editProfile.html', context)
+
+
+
+def contact_add(request):
+    if request.method == 'GET':
+        user = request.user
+        typ = request.GET['contact_type']
+        visibility = request.GET['visibility']
+        value = request.GET['contact_value']
+        if hasattr(user, 'incubator'):
+            achievement = IncubatorContact.objects.create(value=value, contact_type=typ,visibility=visibility, incubator = user.incubator )
+            ctx = {'status': True}
+        if hasattr(user, 'startup'):
+            achievement = StartupContact.objects.create(value=value, contact_type=typ,visibility=visibility, startup = user.startup )
+            ctx = {'status': True}
+        return HttpResponse(json.dumps(ctx), content_type='application/json')
+
+
+def achievement_add(request):
+    if request.method == 'GET':
+        user = request.user
+        title = request.GET['achievement']
+        value = request.GET['achievement_value']
+        if hasattr(user, 'incubator'):
+            achievement = IncubatorAchievement.objects.create(value=value, title=title, incubator = user.incubator )
+            ctx = {'status': True}
+        if hasattr(user, 'startup'):
+            achievement = StartupAchievement.objects.create(value=value, title=title, startup = user.startup )
+            ctx = {'status': True}
+        return HttpResponse(json.dumps(ctx), content_type='application/json')
+
+
+def social_add(request):
+    if request.method == 'GET':
+        user = request.user
+        typ = request.GET['social_type']
+        visibility = request.GET['visibility']
+        value = request.GET['social_value']
+        if hasattr(user, 'incubator'):
+            achievement = IncubatorSocial.objects.create(value=value, social_type=typ,visibility=visibility, incubator = user.incubator )
+            ctx = {'status': True}
+        if hasattr(user, 'startup'):
+            achievement = StartupSocial.objects.create(value=value, social_type=typ,visibility=visibility, startup = user.startup )
+            ctx = {'status': True}
+        return HttpResponse(json.dumps(ctx), content_type='application/json')

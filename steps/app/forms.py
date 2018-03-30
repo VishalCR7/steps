@@ -27,17 +27,25 @@ class UserForm(forms.ModelForm):
         fields = ['first_name', 'last_name']
 
 
-"""
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['__all__']
-"""
+        exclude = ['user']
+
 
 class LocationForm(forms.ModelForm):
     class Meta:
         model = Location
         fields = ['latitude', 'longitude']
+
+
+class IncubatorForm(forms.ModelForm):
+    class Meta:
+        model = Incubator
+        fields = ['name', 'website', 'short_description', 'description', 'tags',
+         'space_info']
+
 
 class IncubatorRequestForm(forms.ModelForm):
     class Meta:
@@ -78,6 +86,11 @@ class IncubatorAchievementForm(forms.ModelForm):
 
 #############################################
 
+
+class StartupForm(forms.ModelForm):
+    class Meta:
+        model = Incubator
+        fields = ['name', 'website', 'short_description', 'description', 'tags', 'email']
 
 
 class StartupRequestForm(forms.ModelForm):
