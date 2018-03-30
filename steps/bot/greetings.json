@@ -1,0 +1,16 @@
+ {
+  "hello": "Hi,it's great to meet you.",
+  "hi":"Hello",
+  "greetings":"Hello",
+  "hi how is it going?":["Never been better","Fine, how 'bout you","Okay","Great","Could be better"],
+  "good morning":["Howdy","Top of the morning to you as well","And wish you the same"],
+  "good afternoon": ["Afternoon mate","Great afternoon","Afternoon to you as well"],
+  "good night":["Sleep tight","Night night","Off to bed"],
+  "how are you doing?":["Good","Very well, thanks","Fine, and you?"],
+  "nice to meet you" : "Thank you",
+  "how do you do?" : ["I'm doing well","I'm doing well. How are you?"],
+  "hi, nice to meet you":"Thank you. You too",
+  "it is a pleasure to meet you" : "Thank you. You too",
+  "what's up?" : ["Not much","Not much, how about you?","Nothing much","The sky's up but I'm fine thanks. What about you?"]
+ }
+
