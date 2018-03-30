@@ -39,6 +39,14 @@ class LocationForm(forms.ModelForm):
         model = Location
         fields = ['latitude', 'longitude']
 
+
+class IncubatorForm(forms.ModelForm):
+    class Meta:
+        model = Incubator
+        fields = ['name', 'website', 'short_description', 'description', 'tags',
+         'space_info']
+
+
 class IncubatorRequestForm(forms.ModelForm):
     class Meta:
         model = Incubator
@@ -78,6 +86,11 @@ class IncubatorAchievementForm(forms.ModelForm):
 
 #############################################
 
+
+class StartupForm(forms.ModelForm):
+    class Meta:
+        model = Incubator
+        fields = ['name', 'website', 'short_description', 'description', 'tags', 'email']
 
 
 class StartupRequestForm(forms.ModelForm):
