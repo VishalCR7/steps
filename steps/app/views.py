@@ -341,6 +341,45 @@ def user_update(request):
 
 
 
+def contact_add(request):
+    if request.method == 'GET':
+        user = request.user
+        typ = request.GET['contact_type']
+        visibility = request.GET['visibility']
+        value = request.GET['contact_value']
+        if hasattr(user, 'incubator'):
+            achievement = IncubatorContact.objects.create(value=value, contact_type=typ,visibility=visibility, incubator = user.incubator )
+            ctx = {'status': True}
+        if hasattr(user, 'startup'):
+            achievement = StartupContact.objects.create(value=value, contact_type=typ,visibility=visibility, startup = user.startup )
+            ctx = {'status': True}
+        return HttpResponse(json.dumps(ctx), content_type='application/json')
 
 
+def achievement_add(request):
+    if request.method == 'GET':
+        user = request.user
+        title = request.GET['achievement']
+        value = request.GET['achievement_value']
+        if hasattr(user, 'incubator'):
+            achievement = IncubatorAchievement.objects.create(value=value, title=title, incubator = user.incubator )
+            ctx = {'status': True}
+        if hasattr(user, 'startup'):
+            achievement = StartupAchievement.objects.create(value=value, title=title, startup = user.startup )
+            ctx = {'status': True}
+        return HttpResponse(json.dumps(ctx), content_type='application/json')
 
+
+def social_add(request):
+    if request.method == 'GET':
+        user = request.user
+        typ = request.GET['social_type']
+        visibility = request.GET['visibility']
+        value = request.GET['social_value']
+        if hasattr(user, 'incubator'):
+            achievement = IncubatorSocial.objects.create(value=value, social_type=typ,visibility=visibility, incubator = user.incubator )
+            ctx = {'status': True}
+        if hasattr(user, 'startup'):
+            achievement = StartupSocial.objects.create(value=value, social_type=typ,visibility=visibility, startup = user.startup )
+            ctx = {'status': True}
+        return HttpResponse(json.dumps(ctx), content_type='application/json')

@@ -23,4 +23,7 @@ urlpatterns = [
     url(r'^profile/(?P<username>\w+)/$', profile, name='profile'),
     url(r'^update/startup/$', views.startup_update, name='startup_update'),
     url(r'^update/user/$', views.user_update, name='user_update'),
+    url(r'^update_contact/$', views.contact_add, name = 'update_contact'),
+    url(r'^update_achievement/$', views.achievement_add, name = 'update_achievement'),
+    url(r'^update_social/$', views.social_add, name = 'update_social'),
 ]

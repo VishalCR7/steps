@@ -119,7 +119,7 @@
 
 		<div class="form-group">
 			<label for="achievement-value">desc</label>
-			<input type="text" class="form-control" id="achievement-value">
+			<input type="text" class="form-control" id="achievement_value">
 		</div>
 		<button class="btn btn-info achievement-btn" type="submit">Submit</button>	
 		</form>
@@ -139,6 +139,11 @@
     			<option value="GH">Github</option>
   			</select>
   		</div>
+
+      <div class="form-group">
+        <label for="option">Acount</label>
+        <input type="text" class="form-control" id="social-value">
+    </div>
 
   		<div class="form-group">
 			<label for="visible">Social Visibility</label>
@@ -163,28 +168,29 @@
 	$(document).ready(function(){
 		$('.contact-btn').click(function(){
 			var text1 = $("#type_contact").val();
-      var text2 = $("#contact-value")
+      var text2 = $("#contact-value").val();
 			var text3 = $('#visible_info').val();
-			var args = {'contact-type': text1, 'contact-value':text2 'visiblity':text2};
-			$.get("/", args).done(function(data){
+			var args = {'contact_type': text1, 'contact_value':text2, 'visibility':text3};
+			$.get("/update_contact/", args).done(function(data){
 				console.log(data);
 			});
 		});
 
 		$('.achievement-btn').click(function(){
 			var text1 = $("#achievement").val();
-			var text2 = $('#achievement-value').val();
-			var args = {'achievement': text1, 'achievement-value ':text2};
-			$.get("/", args).done(function(data){
+			var text2 = $('#achievement_value').val();
+			var args = {'achievement': text1, 'achievement_value ':text2};
+			$.get("/update_achievement/", args).done(function(data){
 				console.log(data);
 			});
 		});
 
 		$('.social-btn').click(function(){
 			var text1 = $('#social-site').val();
-			var text2 = $('#social-visibility').val();
-			var args = {'social-type': text1, 'social_visibility ':text2};
-			$.get("/", args).done(function(data){
+      var text2 = $('#social-value').val();
+			var text3 = $('#social-visibility').val();
+			var args = {'social_type': text1,'social_value':text2, 'visibility ':text3};
+			$.get("/update_social/", args).done(function(data){
 				console.log(data);
 			});
 		});
