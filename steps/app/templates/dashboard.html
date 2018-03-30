@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>S.T.E.P.S</title>
+	<link rel="stylesheet" type="text/css" href="./dashboard.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+ 	
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div class="hamburger">
+			<i class="material-icons md-light md-inactive">reorder</i>
+	</div>
+
+	<div class="overlay-toggle">
+		<div class="overlay"></div>
+		<div class="overlay-options">
+			<div>
+				<ul>
+					<li><h3>Compare</h3></li>
+					<li><h3>Leader Board</h3></li>
+					<li><h3>Add Event</h3></li>
+					<li><h3>Logout</h3></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="container row col-sm-12">
+			<div class="profile col-sm-2 mock_div">
+				<div class="profile-image"></div>
+				<div class="profile-data">
+					<h4>{{ Profile Name }}</h4>
+					<p>Some information about the profile</p>
+				</div>
+			</div>
+
+			<!--dashboard -->
+			<div class="dashboard col-sm-5 mock_div">
+				<h2>Incubators</h2>
+				<!-- incubator image cards here -->
+				<div class="incubators">
+					<div class="card " style="width:250px;" data-toggle="tooltip" title="View Profile">
+	  					<img class="card-img-top" src="./image/profile.jpg" alt="Card image">
+	  					<div class="card-body">
+	    					<h5 class="card-title">{{ Incubator Name }}</h5>
+	    					<p class="card-text">{{ Incubator desciption goes here  }}</p>
+	    				</div>
+					</div>
+
+					<div class="card " style="width:250px;" data-toggle="tooltip" title="View Profile">
+	  					<img class="card-img-top" src="./image/profile.jpg" alt="Card image">
+	  					<div class="card-body">
+	    					<h5 class="card-title">{{ Incubator Name }}</h5>
+	    					<p class="card-text">{{ Incubator desciption goes here  }}</p>
+	    				</div>
+					</div>
+
+					<div class="card " style="width:250px;" data-toggle="tooltip" title="View Profile">
+	  					<img class="card-img-top" src="./image/profile.jpg" alt="Card image">
+	  					<div class="card-body">
+	    					<h5 class="card-title">{{ Incubator Name }}</h5>
+	    					<p class="card-text">{{ Incubator desciption goes here  }}</p>
+	    				</div>
+					</div>
+				</div>
+
+				<hr>
+
+				<h2>StartUps</h2>
+				<!-- startup image card goes here -->
+				<div class="startups">
+					<div class="card " style="width:250px;" data-toggle="tooltip" title="View Profile">
+	  					<img class="card-img-top" src="./image/profile.jpg" alt="Card image">
+	  					<div class="card-body">
+	    					<h5 class="card-title">{{ Startup Name }}</h5>
+	    					<p class="card-text">{{ Startup desciption goes here  }}</p>
+	    				</div>
+					</div>
+
+					<div class="card " style="width:250px;" data-toggle="tooltip" title="View Profile">
+	  					<img class="card-img-top" src="./image/profile.jpg" alt="Card image">
+	  					<div class="card-body">
+	    					<h5 class="card-title">{{ Startup Name }}</h5>
+	    					<p class="card-text">{{ Startup desciption goes here  }}</p>
+	    				</div>
+					</div>
+
+					<div class="card " style="width:250px;" data-toggle="tooltip" title="View Profile">
+	  					<img class="card-img-top" src="./image/profile.jpg" alt="Card image">
+	  					<div class="card-body">
+	    					<h5 class="card-title">{{ Startup Name }}</h5>
+	    					<p class="card-text">{{ Startup desciption goes here  }}</p>
+	    				</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- newsfeed -->
+			<div class="newsfeed col-sm-3 mock_div">
+				<h2>NewsFeed</h2>
+				<div class="news">
+					<!-- newsfeed card goes here -->
+					<div class="newscard" data-toggle="tooltip" title=" Learn More">
+						<div class="newscard-image col-sm-offset-1" >
+						</div>
+						<div class="newscard-body col-sm-offset-1">
+							<h6 class="newscard-title">{{ Personilzed News Title }}</h6>
+							<p class="newscard-text">{{ description of the news }}</p>
+						</div>
+					</div>
+					<br>
+
+					<div class="newscard" data-toggle="tooltip" title="Learn More">
+						<div class="newscard-image col-sm-offset-1">
+						</div>
+						<div class="newscard-body col-sm-offset-1">
+							<h6 class="newscard-title">{{ Personilzed News Title }}</h6>
+							<p class="newscard-text">{{ description of the news }}</p>
+						</div>
+					</div>
+					<br>
+
+					<div class="newscard" data-toggle="tooltip" title="Learn More">
+						<div class="newscard-image col-sm-offset-1">
+						</div>
+						<div class="newscard-body col-sm-offset-1">
+							<h6 class="newscard-title">{{ Personilzed News Title }}</h6>
+							<p class="newscard-text">{{ description of the news }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+</body>
+<script src="./dashboard.js"></script>
+
+</html>
