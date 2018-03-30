@@ -89,3 +89,9 @@ def incubator(request):
 def startup(request):
     return render(request, 'app/startup.html')
 
+def leaderboard(request):
+    return render(request, 'app/leaderboard.html')
+
+def comparator(request):
+    return render(request, 'app/comparator.html')
+
