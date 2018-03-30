@@ -85,8 +85,7 @@ def dashboard(request):
             'startups': startups,
             'profile': profile,
             'feed': feed,
-            'type': 'U',
-            'recommended': recommend_incubator(profile) 
+            'type': 'U'
         }
         print startups
         return render(request,'app/dashboard.html', context)
@@ -95,10 +94,10 @@ def dashboard(request):
         context = {
             'profile': profile,
             'feed': feed,
-            'type': 'I'
+            'type': 'I',
+            'recommended': recommend_startup(profile) 
+
         }
-        print profile.members
-        print context
         return render(request, 'app/incubator.html', context)
     if hasattr(user, 'startup'):
         profile = user.startup
