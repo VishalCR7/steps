@@ -5,7 +5,7 @@ body{
 ul{
 	list-style: none;
 }
-.container{
+.container-dash{
 	margin-top: 150px;
 	display: flex;
 	justify-content: space-around;
@@ -112,4 +112,8 @@ ul li h3::after{
 }
 ul li h3:hover::after{
 	width: 100%;
+}
+/*img*/
+.card-img-top{
+	width: 250px;
 }
