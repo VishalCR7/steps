@@ -146,7 +146,7 @@ class Startup(models.Model):
     location = models.OneToOneField(Location, on_delete=models.CASCADE)
     email = models.EmailField(blank=False)
     status = models.CharField(max_length=10, choices=STATUS_TYPES, default='S')
-    members = models.ManyToManyField(User, related_name='startup_members', through='StartupMember')
+    members = models.ManyToManyField(User, related_name='startup_members', through='StartupMember', blank=True)
     is_incubated = models.BooleanField(default=False)
 
 
@@ -244,10 +244,10 @@ class Incubator(models.Model):
     space_info = models.CharField(max_length=30)
     email = models.EmailField(blank=False)
     status = models.CharField(max_length=10, choices=STATUS_TYPES, default='S')
-    members = models.ManyToManyField(User, related_name='incubator_members', through='IncubatorMember')
-    followers = models.ManyToManyField(User, related_name='incubator_follows')
-    ratings = models.ManyToManyField(User, related_name='rated_incubators',through='IncubatorRating')
-    incubated_startup = models.ManyToManyField(Startup, related_name = 'incubators', through='IncubatorStartup')
+    members = models.ManyToManyField(User, related_name='incubator_members', through='IncubatorMember', blank=True)
+    followers = models.ManyToManyField(User, related_name='incubator_follows', blank=True)
+    ratings = models.ManyToManyField(User, related_name='rated_incubators',through='IncubatorRating', blank=True)
+    incubated_startup = models.ManyToManyField(Startup, related_name = 'incubators', through='IncubatorStartup', blank=True)
 
 
 class IncubatorRating(models.Model):
@@ -359,7 +359,7 @@ class IncubatorPost(models.Model):
     value = models.TextField(blank=True)
     title = models.CharField(max_length=255)
     added_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    likes = models.ManyToManyField(User, related_name='postlikes')
+    likes = models.ManyToManyField(User, related_name='postlikes', blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(blank=True, upload_to='media/incubators/posts')
     post_type = models.CharField(max_length=10, choices=POST_TYPES, verbose_name="Contact Visibility")

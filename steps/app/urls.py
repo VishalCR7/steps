@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),
-
+    url(r'^request/incubator/$', views.incubator_request, name='incubator_request'),
+    url(r'^request/startup/$', views.startup_request, name='startup_request'),
 ]
