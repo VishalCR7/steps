@@ -69,3 +69,23 @@ def activate(request, uidb64, token):
 
 def index(request):
     return render(request, 'app/index.html')
+
+
+def dashboard(request):
+    user = request.user
+    incubators = user.incubator_members.all()
+    startups = user.startup_members.all()
+    userprofile = user.userprofile
+    context = {
+        'incubators': incubators,
+        'startups': startups,
+        'userprofile': userprofile
+    }
+    return render(request, 'app/dashboard.html')
+
+def incubator(request):
+    return render(request, 'app/incubator.html')
+
+def startup(request):
+    return render(request, 'app/startup.html')
+
