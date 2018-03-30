@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^index/$', views.index, name='index'),
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
     url(r'^incubator/$', views.incubator, name='incubator'),
+    url(r'^leaderboard/$', views.leaderboard, name='leaderboard'),
+    url(r'^comparator/$', views.comparator, name='comparator'),
     url(r'^startup/$', views.startup, name='startup'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',

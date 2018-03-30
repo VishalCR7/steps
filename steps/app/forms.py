@@ -18,3 +18,98 @@ class SignupForm(UserCreationForm):
         if User.objects.filter(email=data).exists():
             raise forms.ValidationError("This email already used")
         return data
+
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name']
+
+
+"""
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['__all__']
+"""
+
+class LocationForm(forms.ModelForm):
+    class Meta:
+        model = Location
+        fields = ['latitude', 'longitude']
+
+class IncubatorRequestForm(forms.ModelForm):
+    class Meta:
+        model = Incubator
+        exclude = ['user', 'request_user', 'status', 'members', 'is_incubated',
+         'location', 'followers', 'ratings', 'incubated_startup']
+
+
+class IncubatorFileForm(forms.ModelForm):
+    class Meta:
+        model = IncubatorFile
+        fields = ['title', 'file_added']
+
+
+class IncubatorImageForm(forms.ModelForm):
+    class Meta:
+        model = IncubatorImage
+        fields = ['title', 'file_added']
+
+
+class IncubatorContactForm(forms.ModelForm):
+    class Meta:
+        model = IncubatorContact
+        fields = ['contact_type', 'value', 'visibility']
+
+
+class IncubatorSocialForm(forms.ModelForm):
+    class Meta:
+        model = IncubatorSocial
+        fields = ['social_type', 'value', 'visibility']
+
+
+class IncubatorAchievementForm(forms.ModelForm):
+    class Meta:
+        model = IncubatorAchievement
+        fields = ['title', 'value']
+
+
+#############################################
+
+
+
+class StartupRequestForm(forms.ModelForm):
+    class Meta:
+        model = Startup
+        exclude = ['user', 'request_user', 'status', 'members', 'is_incubated', 'location']
+
+
+class StartupFileForm(forms.ModelForm):
+    class Meta:
+        model = StartupFile
+        fields = ['title', 'file_added']
+
+class StartupImageForm(forms.ModelForm):
+    class Meta:
+        model = StartupsImage
+        fields = ['title', 'file_added']
+
+
+class StartupContactForm(forms.ModelForm):
+    class Meta:
+        model = StartupContact
+        fields = ['contact_type', 'value', 'visibility']
+
+
+class StartupSocialForm(forms.ModelForm):
+    class Meta:
+        model = StartupSocial
+        fields = ['social_type', 'value', 'visibility']
+
+
+class StartupAchievementForm(forms.ModelForm):
+    class Meta:
+        model = StartupAchievement
+        fields = ['title', 'value']

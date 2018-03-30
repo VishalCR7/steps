@@ -1,0 +1,116 @@
+.pricingdiv{
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 16px;
+  justify-content: center;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+}
+
+.pricingdiv ul.theplan{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  width: 300px; /* width of each table */
+  height: 600px;
+  margin-top: 50px;
+  margin-right: 20px; /* spacing between tables */
+  margin-bottom: 1em;
+  border: 1px solid gray;
+  transition: all .5s;
+}
+
+
+.pricingdiv ul.theplan .center{
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pricingdiv ul.theplan img{
+  max-width: 80%;
+  height: auto;
+}
+
+.pricingdiv ul.theplan li{
+  padding: 10px 10px;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+
+.pricingdiv ul.theplan li.title{
+  font-weight: bold;
+  text-align: center;
+  padding: 30px 10px;
+  background: rgb(40, 193, 203);
+  color: white;
+  box-shadow: 0 -10px 5px rgba(0,0,0,.1) inset;
+  text-transform: uppercase;
+}
+
+.pricingdiv ul.theplan:nth-of-type(2) li.title{
+  background: rgb(249, 111, 118);
+  color: white;
+}
+    
+.pricingdiv ul.theplan:nth-of-type(3) li.title{
+  background: rgb(210, 117, 251);
+  color: white;
+}
+
+.pricingdiv ul.theplan li b{
+  text-transform: uppercase;
+}
+.pricingdiv ul.theplan li.title b{
+  font-size: 250%;
+}
+
+.pricingdiv ul.theplan:last-of-type{ /* remove right margin in very last table */
+  margin-right: 0;
+}
+
+/*very last LI within each pricing UL */
+.pricingdiv ul.theplan li:last-of-type{
+  text-align: center;
+  margin-top: auto; /*align last LI (price botton li) to the very bottom of UL */
+}  
+
+.pricingdiv a.pricebutton{
+  background: red;
+  text-decoration: none;
+  padding: 10px;
+  display: inline-block;
+  margin: 10px auto;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+@media only screen and (max-width: 600px) {
+  .pricingdiv ul.theplan{
+    border-radius: 0;
+    width: 100%;
+    margin-right: 0;
+  }
+  
+  
+  .pricingdiv a.pricebutton{
+    display: block;
+  }
+}
+
+ul li{
+  color: black;
+}
+.compare-container{
+  margin-top: 120px;
+}
+.header-container{
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

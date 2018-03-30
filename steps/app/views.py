@@ -73,19 +73,93 @@ def index(request):
 
 def dashboard(request):
     user = request.user
-    incubators = user.incubator_members.all()
-    startups = user.startup_members.all()
-    userprofile = user.userprofile
-    context = {
-        'incubators': incubators,
-        'startups': startups,
-        'userprofile': userprofile
-    }
-    return render(request, 'app/dashboard.html')
+    feed = IncubatorPost.objects.all()
+    if hasattr(user, 'userprofile'):
+        incubators = user.incubator_members.all()
+        startups = user.startup_members.all()
+        userprofile = user.userprofile
+        context = {
+            'incubators': incubators,
+            'startups': startups,
+            'userprofile': userprofile,
+            'feed': feed,
+            'type': 'U'
+        }
+        return render(request, 'app/dashboard.html')
+    if hasattr(user, 'incubator'):
+        incubators = user.incubator_members.all()
+        startups = user.startup_members.all()
+        userprofile = user.userprofile
+        context = {
+            'incubators': incubators,
+            'startups': startups,
+            'userprofile': userprofile,
+            'feed': feed,
+            'type': 'I'
+        }
+        return render(request, 'app/dashboard.html')
+    if hasattr(user, 'startup'):
+        incubators = user.incubator_members.all()
+        startups = user.startup_members.all()
+        userprofile = user.userprofile
+        context = {
+            'incubators': incubators,
+            'startups': startups,
+            'userprofile': userprofile,
+            'feed': feed,
+            'type': 'S'
+        }
+        return render(request, 'app/dashboard.html', context)
+
+
+@login_required(login_url='/')
+def profile(request, id):
+    user  = get_object_or_404(User, pk=id)
+    if hasattr(user, 'userprofile'):
+        profile = get_object_or_404(UserProfile, user=user)
+        context = {
+            'profile': profile,
+            'userp': user,
+            'type': 'U'
+        }
+        return render(request, "main/userprofile.html", context)
+    if hasattr(user, 'incubator'):
+        profile = get_object_or_404(Incubator, user=user)
+        posts = profile.posts.all()
+        context = {
+            'profile': profile,
+            'userp': user,
+            'type': 'I',
+            'posts': posts,
+        }
+        return render(request, "main/incubator.html", context)
+    if hasattr(user, 'startup'):
+        profile = get_object_or_404(Startup, user=user)
+        context = {
+            'profile': profile,
+            'userp': user,
+            'type': 'S'
+        }
+        return render(request, "main/startup.html", context)
+
+
+def incubator_request(request):
+    return render(request, 'app/incubator_request.html')
+
+
+def incubator_request(request):
+    return render(request, 'app/startup_request.html')
+
 
 def incubator(request):
     return render(request, 'app/incubator.html')
 
 def startup(request):
     return render(request, 'app/startup.html')
+
+def leaderboard(request):
+    return render(request, 'app/leaderboard.html')
+
+def comparator(request):
+    return render(request, 'app/comparator.html')
 
