@@ -5,7 +5,9 @@ body{
 ul{
 	list-style: none;
 }
-.container-dash{
+.container-dash
+
+{
 	margin-top: 150px;
 	display: flex;
 	justify-content: space-around;
@@ -21,13 +23,19 @@ ul{
 	padding-top: 20px;
 }
 .profile-image{
+	overflow: hidden;
 	width: 150px;
 	height: 150px;
 	border-radius: 50%;
-	background-image: url(../img/profile.jpg);
-	background-size: cover;
+/*	background-image: url(../img/profile.jpg);
+*/	background-size: cover;
 	background-position: center;
 }
+
+.profile-image img{
+	width: 130%;
+}
+
 .profile-data{
 	margin-top: 10px;
 }
@@ -53,13 +61,18 @@ ul{
 	box-shadow:  0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
 	cursor: pointer;
 }
+.newscard-body{
+	overflow: hidden;
+    height: 75px;
+    margin-left: 3px !important; 
+}
 .newscard-image{
 	cursor: pointer;
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
-	background-image: url(../img/profile.jpg);
-	background-size: cover;
+/*	background-image: url(../img/profile.jpg);
+*/	background-size: cover;
 	background-position: center;
 }
 .hamburger{

@@ -85,7 +85,8 @@ def dashboard(request):
             'feed': feed,
             'type': 'U'
         }
-        return render(request, 'app/dashboard.html')
+        print startups
+        return render(request,'app/dashboard.html', context)
     if hasattr(user, 'incubator'):
         incubators = user.incubator_members.all()
         startups = user.startup_members.all()

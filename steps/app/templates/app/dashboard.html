@@ -58,7 +58,7 @@
   </header>
   <div class="container-dash row col-sm-12">
   	<div class="profile col-sm-2 mock_div">
-  		<div class="profile-image"></div>
+  		<div class="profile-image"><img src="{{user.userprofile.image.url}}" /></div>
   		<div class="profile-data">
   			<h4> {{user.username}} </h4>
   			<p>{{user.userprofile.gender}}</p>
@@ -83,7 +83,6 @@
   		<hr>
 
   		<h2>StartUps</h2>
-      {{startups}}
   		<!-- startup image card goes here -->
   		<div class="startups">
         {% for x in startups %}
@@ -109,7 +108,7 @@
   				</div>
   				<div class="newscard-body col-sm-offset-1">
   					<h6 class="newscard-title">{{x.title}}</h6>
-  					<p class="newscard-text">{{ x.description }}</p>
+  					<p class="newscard-text">{{ x.value }}</p>
   				</div>
   			</div>
   			<br>
