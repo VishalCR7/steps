@@ -94,7 +94,9 @@ def dashboard(request):
             'feed': feed,
             'type': 'I'
         }
-        return render(request, 'app/dashboard.html')
+        print profile.members
+        print context
+        return render(request, 'app/incubator.html', context)
     if hasattr(user, 'startup'):
         profile = user.startup
         context = {
@@ -102,12 +104,13 @@ def dashboard(request):
             'feed': feed,
             'type': 'S'
         }
-        return render(request, 'app/dashboard.html', context)
+        print profile.members.all()
+        return render(request, 'app/startup.html', context)
 
 
 @login_required(login_url='/')
-def profile(request, id):
-    user  = get_object_or_404(User, pk=id)
+def profile(request, username):
+    user  = get_object_or_404(User, username=username)
     if hasattr(user, 'userprofile'):
         profile = get_object_or_404(UserProfile, user=user)
         context = {
@@ -123,9 +126,9 @@ def profile(request, id):
             'profile': profile,
             'userp': user,
             'type': 'I',
-            'posts': posts,
+            'posts': posts
         }
-        return render(request, "main/incubator.html", context)
+        return render(request, "app/incubator_profile.html", context)
     if hasattr(user, 'startup'):
         profile = get_object_or_404(Startup, user=user)
         context = {
@@ -133,7 +136,7 @@ def profile(request, id):
             'userp': user,
             'type': 'S'
         }
-        return render(request, "main/startup.html", context)
+        return render(request, "app/startup_profile.html", context)
 
 
 

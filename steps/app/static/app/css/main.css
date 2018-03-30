@@ -128,15 +128,8 @@ ul li a:hover::after{
 	display: flex;
 	width: 100%;
 	box-shadow:  0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
-}
-.newscard-image{
-	cursor: pointer;
-	width: 60px;
-	height: 60px;
-	border-radius: 50%;
-	background-image: url(../img/profile.jpg);
-	background-size: cover;
-	background-position: center;
+	height: 80px;
+	overflow: hidden;
 }
 .view-more{
 	cursor: pointer;

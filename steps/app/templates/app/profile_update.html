@@ -8,6 +8,7 @@
  	rel="stylesheet">
  	<link href="{% static 'app/css/font-awesome.min.css' %}" rel="stylesheet">
  	<link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+ 	<link href="{% static 'app/css/update_profile.css' %}" rel="stylesheet" type="text/css"/>
 
 </head>
 <body>
@@ -26,10 +27,11 @@
   		<button class="btn btn-info file-info">Submit</button>
   	</div>	
 	-->
-
-  	<div class="contact-form">
-  		<h2>Contact Info form</h2>
-		<div class="form-group">
+<div class="form-container" style="display: flex; flex-direction: column; margin-top: 50px;">
+	<div class="form-style-8 col-sm-6">
+  		<h2>Contact Info Form</h2>
+  		<form>
+    	<div class="form-group">
     		<label for="option">Contact Info</label>
     		<select id="type_contact">
     			<option value="Mob">Mobile</option>
@@ -50,10 +52,13 @@
   			</select>
   		</div>
   		<button class="btn btn-info contact-btn" type="submit">Submit</button>
+	
+    	</form>
 	</div>
 
-	<div class="achievement-form">
-		<h2>Achievements form</h2>
+	<div class="form-style-8 col-sm-6">
+		<form>
+			<h2>Achievements form</h2>
 		<div class="form-group">
 			<label for="achievment">Achievement title</label>
 			<input type="text" class="form-control" id="achievement">
@@ -63,11 +68,13 @@
 			<label for="achievement-value">desc</label>
 			<input type="text" class="form-control" id="achievement-value">
 		</div>
-		<button class="btn btn-info achievement-btn" type="submit">Submit</button>
+		<button class="btn btn-info achievement-btn" type="submit">Submit</button>	
+		</form>
 	</div>	
 
-	<div class="social-form">
-		<h2>Social Info form</h2>
+	<div class="form-style-8 col-sm-6">
+		<form>
+			<h2>Social Info form</h2>
 		<div class="form-group">
 			<label for="visible">Contact Type</label>
     		<select id="social-site">
@@ -92,7 +99,9 @@
   			</select>
   		</div>
   		<button class="btn btn-info social-btn" type="submit">Submit</button>
-	</div>		
+		</form>
+	</div>	
+</div>	
 </body>
 
 <script>

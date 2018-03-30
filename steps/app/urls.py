@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^request/incubator/$', views.incubator_request, name='incubator_request'),
     url(r'^request/startup/$', views.startup_request, name='startup_request'),
     url(r'^update/incubator/$', views.incubator_update, name='incubator_update'),
+    url(r'^profile/(?P<username>\w+)/$', profile, name='profile'),
 ]
