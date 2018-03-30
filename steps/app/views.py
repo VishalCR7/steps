@@ -118,7 +118,7 @@ def profile(request, username):
             'userp': user,
             'type': 'U'
         }
-        return render(request, "main/userprofile.html", context)
+        return render(request, "app/userprofile.html", context)
     if hasattr(user, 'incubator'):
         profile = get_object_or_404(Incubator, user=user)
         posts = profile.posts.all()
