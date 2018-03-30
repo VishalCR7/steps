@@ -1,70 +1,81 @@
-<section class="content">
-  <div class="ui container">
+ {% load static %}
+ <link rel="stylesheet" type="text/css" href="{% static 'app/css/leaderboard.css' %}">
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+ rel="stylesheet">
+ <link href="{% static 'app/css/font-awesome.min.css' %}" rel="stylesheet">
+ <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+
+ <div class="header" style="width: 100vw; height: 200px; background-color:#673AB7">
+   
+ </div>
+ 
+ <section class="content">
+  <div class="ui container col-sm-6 col-sm-offset-3">
     <div class="ui grid">
 
 
       <div class="twelve wide column">
-        <h4 class="ui top attached block header">
-          Distinguished Alumni Awards - Form
-        </h4>
+        <h2 class="ui top attached block header" style="text-align:center">
+          Register as Type_to_Register
+        </h2>
         <div class="distinguishedForm">
-    {% if status != 'Success' %}
-            <form method="post" action="" enctype="multipart/form-data" class="ui form">
-              {% csrf_token %}
-              <div style="text-align:center">
-      <h3>Details of the Nominee</h3>
-    </div>
-    {% for field in form %}
-                <div class="field">
-      {% for error in field.errors %}
-        <div class="alert alert-danger">
-        <strong>{{ error|escape }}</strong>
-        </div>
-      {% endfor %}
-                  <label for="{{ field.auto_id }}">{{ field.label_tag }}
-                </label>
-                  {{ field }}
-                </div>
+          {% if status != 'Success' %}
+          <form method="post" action="" enctype="multipart/form-data" class="ui form">
+            {% csrf_token %}
+            <div style="text-align:center">
+              <h3>Details of Incubator</h3>
+            </div>
+            {% for field in form %}
+            <div class="field" style="display: flex;flex-direction: column;">
+              {% for error in field.errors %}
+              <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+              </div>
               {% endfor %}
-              {% for field in locationform %}
-                <div class="field">
-            {% for error in field.errors %}
-      <div class="alert alert-danger">
-      <strong>{{ error|escape }}</strong>
-      </div>
-      {% endfor %}
-                <label for="{{ field.auto_id }}">{{ field.label_tag }}
-                </label>
-                {{ field }}
-                </div>
+              <label for="{{ field.auto_id }}">{{ field.label_tag }}
+              </label>
+              {{ field }}
+            </div>
+            {% endfor %}
+            {% for field in locationform %}
+            <div class="field" style="display: flex;flex-direction: column;">
+              {% for error in field.errors %}
+              <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+              </div>
               {% endfor %}
-    <br/><hr/><br/>
-              <div style="text-align:center">
-      <h3>Details of the Nominator</h3>
-    </div>
-    {% for field in fileform %}
-                <div class="field">
-            {% for error in field.errors %}
-      <div class="alert alert-danger">
-      <strong>{{ error|escape }}</strong>
-      </div>
-      {% endfor %}
-                <label for="{{ field.auto_id }}">{{ field.label_tag }}
-                </label>
-                {{ field }}
-                </div>
+              <label for="{{ field.auto_id }}">{{ field.label_tag }}
+              </label>
+              {{ field }}
+            </div>
+            {% endfor %}
+            <br/><hr/><br/>
+            <div style="text-align:center">
+              <h3>Upload Certification Certificate</h3>
+            </div>
+            {% for field in fileform %}
+            <div class="field" style="display: flex;flex-direction: column;">
+              {% for error in field.errors %}
+              <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+              </div>
               {% endfor %}
-    <br/>
-    <input type="checkbox" name="knowledge" value="knowledge" required>&nbsp&nbspI affirm that the information provided here is true to the best of my knowledge and should an information be found untrue, the nomination may be cancelled.
-    <br/><br/>
+              <label for="{{ field.auto_id }}">{{ field.label_tag }}
+              </label>
+              {{ field }}
+            </div>
+            {% endfor %}
+            <br/>
+            <input type="checkbox" name="knowledge" value="knowledge" required>&nbsp&nbspI affirm that the information provided here is true to the best of my knowledge and should an information be found untrue, the nomination may be cancelled.
+            <br/><br/>
 
-    <button class="distinguishedSubmit">Submit</button>
-            </form>
+            <button class="distinguishedSubmit">Submit</button>
+          </form>
           {% else %}
-    Successfully submitted the form
-    {% endif %}
-  </div>
+          Successfully submitted the form
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
-</section>
+  </section>
