@@ -120,7 +120,7 @@ def profile(request, username):
             'userp': user,
             'type': 'U'
         }
-        return render(request, "main/userprofile.html", context)
+        return render(request, "app/userprofile.html", context)
     if hasattr(user, 'incubator'):
         profile = get_object_or_404(Incubator, user=user)
         posts = profile.posts.all()
@@ -130,7 +130,7 @@ def profile(request, username):
             'type': 'I',
             'posts': posts,
         }
-        return render(request, "main/incubator.html", context)
+        return render(request, "app/incubator.html", context)
     if hasattr(user, 'startup'):
         profile = get_object_or_404(Startup, user=user)
         context = {
@@ -138,7 +138,7 @@ def profile(request, username):
             'userp': user,
             'type': 'S'
         }
-        return render(request, "main/startup.html", context)
+        return render(request, "app/startup.html", context)
 
 
 
