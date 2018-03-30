@@ -68,4 +68,4 @@ def activate(request, uidb64, token):
 
 
 def index(request):
-    return HttpResponse('Hey There!')
+    return render(request, 'app/index.html')
