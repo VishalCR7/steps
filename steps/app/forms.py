@@ -27,12 +27,12 @@ class UserForm(forms.ModelForm):
         fields = ['first_name', 'last_name']
 
 
-"""
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['__all__']
-"""
+        exclude = ['user']
+
 
 class LocationForm(forms.ModelForm):
     class Meta:
