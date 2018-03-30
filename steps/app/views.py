@@ -70,7 +70,3 @@ def activate(request, uidb64, token):
 def index(request):
     return render(request, 'app/index.html')
 
-@login_required(login_url='/')
-def dashboard(request):
-    incubators  = user.incubator_members.all()
-    return render(request, 'app/index.html')
