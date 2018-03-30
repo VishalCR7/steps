@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title>S.T.E.P.S.</title>
+ 	<link rel="stylesheet" type="text/css" href="{% static 'app/css/leaderboard.css' %}">
+ 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+ 	rel="stylesheet">
+ 	<link href="{% static 'app/css/font-awesome.min.css' %}" rel="stylesheet">
+ 	<link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+	<!--
+	<div class="file-form">
+		<h2>File update form</h2>
+		<div class="form-group">
+    		<label for="Title">Title</label>
+    		<input type="text" class="form-control" id="Title">
+  		</div>
+
+		<div class="form-group">
+    		<label for="file">File</label>
+    		<input type="file" class="form-control" id="Title">
+  		</div>
+  		<button class="btn btn-info file-info">Submit</button>
+  	</div>	
+	-->
+
+  	<div class="contact-form">
+  		<h2>Contact Info form</h2>
+		<div class="form-group">
+    		<label for="option">Contact Info</label>
+    		<select id="type_contact">
+    			<option value="Mob">Mobile</option>
+    			<option value="Email">Email</option>
+    		</select>
+  		</div>
+
+
+		<div class="form-group">
+			<label for="visible">Visibility</label>
+    		<select id="visible_info">
+    			<option value="Me">Only Me</option>
+    			<option value="All">All</option>
+    			<option value="INC">Incubator</option>
+    			<option value="SU">Start ups</option>
+    			<option value="SUT">Start up team</option>
+    			<option value="INCT">Incubator Team</option>
+  			</select>
+  		</div>
+  		<button class="btn btn-info contact-btn" type="submit">Submit</button>
+	</div>
+
+	<div class="achievement-form">
+		<h2>Achievements form</h2>
+		<div class="form-group">
+			<label for="achievment">Achievement title</label>
+			<input type="text" class="form-control" id="achievement">
+		</div>
+
+		<div class="form-group">
+			<label for="achievement-value">desc</label>
+			<input type="text" class="form-control" id="achievement-value">
+		</div>
+		<button class="btn btn-info achievement-btn" type="submit">Submit</button>
+	</div>	
+
+	<div class="social-form">
+		<h2>Social Info form</h2>
+		<div class="form-group">
+			<label for="visible">Contact Type</label>
+    		<select id="social-site">
+    			<option value="FB">Facebook</option>
+    			<option value="TW">Twitter</option>
+    			<option value="IN">Instagram</option>
+    			<option value="SC">Snap Chat</option>
+    			<option value="LI">Linked in</option>
+    			<option value="GH">Github</option>
+  			</select>
+  		</div>
+
+  		<div class="form-group">
+			<label for="visible">Social Visibility</label>
+    		<select id="social-visibility">
+    			<option value="Me">Only Me</option>
+    			<option value="All">All</option>
+    			<option value="INC">Incubator</option>
+    			<option value="SU">Start ups</option>
+    			<option value="SUT">Start up team</option>
+    			<option value="INCT">Incubator Team</option>
+  			</select>
+  		</div>
+  		<button class="btn btn-info social-btn" type="submit">Submit</button>
+	</div>		
+</body>
+
+<script>
+	$(document).ready(function(){
+		$('.contact-btn').click(function(){
+			var text1 = $("#type_contact").val();
+			var text2 = $('#visible_info').val();
+			var args = {'val_contact': text1, 'visiblity':text2};
+			$.get("/", args).done(function(data){
+				console.log(data);
+			});
+		});
+
+		$('.achievement-btn').click(function(){
+			var text1 = $("#achievement").val();
+			var text2 = $('#achievement-value').val();
+			var args = {'achievement': text1, 'achievement-value ':text2};
+			$.get("/", args).done(function(data){
+				console.log(data);
+			});
+		});
+
+		$('.social-btn').click(function(){
+			var text1 = $('#social-site').val();
+			var text2 = $('#social-visibility').val();
+			var args = {'social_val': text1, 'social_visibility ':text2};
+			$.get("/", args).done(function(data){
+				console.log(data);
+			});
+		});
+
+	})
+</script>
+</html>

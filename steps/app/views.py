@@ -242,11 +242,27 @@ def startup_request(request):
     return render(request, 'app/incubator_request.html', context)
 
 
-def incubator(request):
-    return render(request, 'app/incubator.html')
+def incubator_update(request):
+    form = IncubatorForm()
+    imageform = IncubatorImageForm()
+    contactform = IncubatorContactForm()
+    achievementform = IncubatorAchievementForm()
+    socialform = IncubatorSocialForm()
+    context = {
+        'form':form,
+        'imageform':  imageform,
+        'contactform': contactform,
+        'achievementform': achievementform,
+        'socialform': socialform
+    }
 
-def startup(request):
-    return render(request, 'app/startup.html')
+    return render(request, 'app/profile_update.html', context)
+
+def startup_update(request):
+    return render(request, 'app/profile_update.html')
+
+def user_update(request):
+    return render(request, 'app/profile_update.html')
 
 def leaderboard(request):
     return render(request, 'app/leaderboard.html')

@@ -5,9 +5,10 @@ body{
 ul{
 	list-style: none;
 }
-.container-dash
-
-{
+li a{
+  color: #D3D3D3 !important;
+}
+.container-dash{
 	margin-top: 150px;
 	display: flex;
 	justify-content: space-around;
