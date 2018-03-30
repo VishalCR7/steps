@@ -113,3 +113,7 @@ ul li h3::after{
 ul li h3:hover::after{
 	width: 100%;
 }
+/*img*/
+.card-img-top{
+	width: 250px;
+}
