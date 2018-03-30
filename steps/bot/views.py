@@ -13,8 +13,15 @@ def parser(request):
     if request.method == "POST":
         print request.POST.get('message')
         data = request.POST.get('message').lower()                                                                      
-        words = data.lower().strip().split()                                                                            
+        words = set(data.lower().strip().split())                                                                            
         json_data = json.load(open('greetings.json'))                                                                   
+        faq_data = json.load(open('faq.json'))
+        for word in words:
+            if word in faq_data.keys():
+                rdata = {
+                        'message':faq_data[word]
+                        }
+                return JsonResponse(rdata)
         if data in json_data.keys():                                                                                    
             if type(json_data[data]) == list:                                                                           
                 rdata = {                                                                                               
