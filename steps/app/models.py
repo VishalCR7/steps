@@ -359,6 +359,7 @@ class IncubatorPost(models.Model):
     value = models.TextField(blank=True)
     title = models.CharField(max_length=255)
     added_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name='postlikes')
     created_on = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(blank=True, upload_to='media/incubators/posts')
     post_type = models.CharField(max_length=10, choices=POST_TYPES, verbose_name="Contact Visibility")
@@ -370,6 +371,23 @@ class IncubatorPost(models.Model):
         verbose_name_plural = "Posts - Incubator"
         ordering = ["incubator"]
 
+
+class Comment(models.Model):
+    POST_TYPES = (
+        ('P', 'Post'),
+        ('C', 'Competition'),
+    )
+    post = models.ForeignKey(IncubatorPost, on_delete=models.CASCADE)
+    value = models.TextField()
+    added_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return self.value + '-' + self.added_by.username
+
+    class Meta:
+        verbose_name_plural = "Posts - Incubator"
 
 
 # Models for CHAT
