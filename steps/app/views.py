@@ -111,8 +111,8 @@ def dashboard(request):
 
 
 @login_required(login_url='/')
-def profile(request, id):
-    user  = get_object_or_404(User, pk=id)
+def profile(request, username):
+    user  = get_object_or_404(User, username=username)
     if hasattr(user, 'userprofile'):
         profile = get_object_or_404(UserProfile, user=user)
         context = {
@@ -257,6 +257,7 @@ def leaderboard(request):
     return render(request, 'app/leaderboard.html')
 
 def comparator(request):
+
     return render(request, 'app/comparator.html')
 
 def recommend_incubator(startup):
