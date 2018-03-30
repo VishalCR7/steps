@@ -140,8 +140,6 @@ def profile(request, username):
         }
         return render(request, "app/startup_profile.html", context)
 
-
-
 def incubatorid():
     name = 'INC'
     try:
