@@ -86,6 +86,37 @@
 </nav>
 </header>
 <div class="overlay-toggle">
+	<div class="message-container">
+		<h3 style="color: white;">Send a message</h3>
+	    <div class="row">
+			<div class="col-sm-4 col-md-4">
+	            <div class="panel panel-default">
+	                <div class="panel-body">                
+	                    <form accept-charset="UTF-8" action="" method="POST">
+	                        <textarea class="form-control counted" name="message" placeholder="Type in your message" rows="5" style="margin-bottom:10px;"></textarea>
+	                        <button class="btn btn-info" type="submit">Post New Message</button>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+		</div>
+	</div>
+
+	<div class="contact-container">
+		<h3 style="color: white;">Contact StartUp Name</h3>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						<textarea class="form-control counted" name="message" placeholder="Send a greeting" rows="5" style="margin-bottom:10px;"></textarea>
+	                    <button class="btn btn-info" type="submit">Connect</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="overlay"></div>
 </div>
 <div class="profile">
@@ -116,8 +147,8 @@
 			<div class="newscard-body col-sm-offset-1">
 				<h5 class="newscard-title">Incubator Name</h5>
 				<div>
-					<button class="btn-startup">Message</button>
-					<button class="btn-startup">View activites</button>
+					<button class="btn-startup btn-message">Message</button>
+					<button class="btn-startup btn-activity">View activites</button>
 				</div>
 			</div>
 		</div>
@@ -212,7 +243,9 @@
 		myLatLng = {lat:20.2255431, lng: 85.74091600000001};
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: myLatLng,
-			zoom: 8
+			zoom: 8,
+			disableDefaultUI: true,
+			zoomControl: true
 		});
 
 		var marker = new google.maps.Marker({
@@ -227,5 +260,33 @@
   <script src="{% static 'app/js/bootstrap.min.js' %}" type="text/javascript"></script>
   <!-- PAGE LEVEL SCRIPTS -->
   <script src="{% static 'app/js/layout.js' %}" type="text/javascript"></script>
+  <script>
+	  $(document).ready(function(){
+			// show message box
+			$('.btn-message').click(function(){
+				$('.overlay-toggle').show();
+				$('.message-container').show();
+			});
+
+			// show activity box
+			$('.btn-activity').click(function(){
+				$('.overlay-toggle').show();
+			});
+
+			// connect with box
+			$('.btn-contact').click(function(){
+				$('.overlay-toggle').show();
+				$('.contact-container').show();
+			});
+
+			// hide overlay
+			$('.overlay').click(function(){
+				$('.overlay-toggle').hide();
+				$('.message-container').hide();
+				$('.event-container').hide();
+				$('.contact-container').hide();
+			});
+		});
+  </script>
 
 </html>

@@ -12,10 +12,10 @@ a{
 }
 .overlay{
 	width: 98.9vw;
-	height: 100%;
+	height: 135%;
 	background-color: black;
 	opacity: 0.5;
-	z-index:10;
+	z-index:10000;
 	position: absolute;
 	top:0;
 }
@@ -128,7 +128,6 @@ ul li a:hover::after{
 	display: flex;
 	width: 100%;
 	box-shadow:  0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
-  
 }
 .newscard-image{
 	cursor: pointer;
@@ -206,4 +205,20 @@ ul li a:hover::after{
  	width: 40vw;
  	margin-left: 5vw;
  	display: none;
+ }
+ .message-container, .event-container, .contact-container{
+ 	z-index: 20000;
+ 	position: fixed;
+ 	width: 100vw;
+ 	margin-left: 36vw;
+ 	margin-top: 250px;
+ 	display: none;
+ }
+ .event-container{
+ 	margin-left: 20vw;
+ 	margin-top: 200px;
+ }
+ .contact-container{
+ 	margin-left: 20vw;
+ 	margin-top: 200px;
  }
