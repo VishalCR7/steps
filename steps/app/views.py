@@ -257,7 +257,13 @@ def leaderboard(request):
     return render(request, 'app/leaderboard.html')
 
 def comparator(request):
-
+    s1 = request.GET.get('s1')
+    s2 = request.GET.get('s2')
+    t = request.GET.get('t')
+    if t == 'incubator':
+        i1 = User.objects.get(username=s1).incubator
+        i2 = User.objects.get(username=s2).incubator
+    
     return render(request, 'app/comparator.html')
 
 def recommend_incubator(startup):
@@ -335,17 +341,7 @@ def recommend_startup(startup):
             dr = (500-distance)/500*5
         else:
             dr=0
-        rate = inc.ratings.all()
-        n = len(rate)
-        if n!=0:
-            s=0
-            for rat in rate:
-                s = s+rat
-            av = (s+0.00)/n
-        else:
-            av = 0
-        a['rating'] = av
-        a['sparam'] = int(3*cr+4*dr+5*av)
+        a['sparam'] = int(3*cr+4*dr)
         d.append(a)
     s = sorted(d, key=lambda k: k['sparam'])
     i = map(lambda k:k['obj'],s)
