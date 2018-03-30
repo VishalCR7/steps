@@ -10,7 +10,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt                                                                    
 @csrf_exempt                                                                                                            
 def parser(request):                                                                                                     
-    if request.method == "POST":                                                                                        
+    if request.method == "POST":
+        print request.POST.get('message')
         data = request.POST.get('message').lower()                                                                      
         words = data.lower().strip().split()                                                                            
         json_data = json.load(open('greetings.json'))                                                                   
@@ -24,7 +25,7 @@ def parser(request):
                         'message':json_data[data]                                                                       
                         }                                                                                               
             return JsonResponse(rdata)                                                                                  
-        if ('create' in words) or ('add' in words):                                                                     
+        elif ('create' in words) or ('add' in words):
             rdata = {                                                                                                   
                     'message':"create an event"                                                                         
                     }                                                                                               
@@ -33,9 +34,18 @@ def parser(request):
             if 'events' in words:                                                                                       
                 pass                                                                                                    
             else:                                                                                                       
-                pass                                                                                                    
+                pass
+
         elif ('feed' in words) or ('newsfeed' in words):                                                                
-            pass                                                                                                        
+            feed = IncubatorPost.objects.all()[0:5]
+            msg = ''
+            for x in feed:
+                msg = msg+x.incubator.name+x.title+'<br>'
+            rdata={
+                    'message':msg
+                }
+            return JsonResponse(rdata)
+
         elif ('top' in words):                                                                                          
             if ('startup' in words):                                                                                    
                 pass                                                                                                    
@@ -45,6 +55,11 @@ def parser(request):
             rdata = {                                                                                                   
                     'message':'The time is '+str(datetime.datetime.now(timezone('Asia/Kolkata')).time())[0:8]                                   
                     }                                                                                                   
-            return JsonResponse(rdata)                                                                                  
+            return JsonResponse(rdata)     
+        else:
+            rdata = {
+                    'message':'I am sorry, I don\'t understand'
+                    }
+            return JsonResponse(rdata)
     if request.method == 'GET':                                                                                         
         return JsonResponse({"mesage":"No Get"})                                                                        
