@@ -232,3 +232,8 @@ ul li a:hover::after{
  	margin-left: 20vw;
  	margin-top: 200px;
  }
+ 
+ .add_member-container{
+ 	width: 50vw;
+ 	display: none;
+ }

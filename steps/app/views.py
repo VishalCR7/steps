@@ -77,21 +77,25 @@ def dashboard(request):
     user = request.user
     feed = IncubatorPost.objects.all()
     if hasattr(user, 'incubator'):
+        form = IncubatorMemberForm()
         profile = user.incubator
         context = {
             'profile': profile,
             'feed': feed,
             'type': 'I',
+            'form': form,
             'recommended': recommend_startup(profile)
 
         }
         return render(request, 'app/incubator.html', context)
     if hasattr(user, 'startup'):
+        form = StartupMemberForm()
         profile = user.startup
         context = {
             'profile': profile,
             'feed': feed,
             'type': 'S',
+            'form': form,
             'recommended': recommend_incubator(profile)
         }
         return render(request, 'app/startup.html', context)
@@ -499,21 +503,48 @@ def incubator_member_add(request):
     }
     if request.method == 'POST':
         profile = user.incubator
-        form = StartupForm(request.POST)
+        form = IncubatorMemberForm(request.POST)
         if form.is_valid():
-            f = form.save(commit=False)
-            f.incubator = profile
-            form.save_m2m()
-            f.save()
+            print request.POST['user']
+            for user in request.POST['user']:
+                userp = get_object_or_404(User, pk=user)
+                f = IncubatorMember.objects.create(access_level = request.POST['access_level'], user = userp,
+                        incubator = profile, role = request.POST['role'])
 
 
-            return HttpResponseRedirect(reverse('app:incubator_member_add'))
+            return HttpResponseRedirect(reverse('app:dashboard'))
         else :
             context = {
             'form'  : form,
             }
 
-    return render(request, 'app/memberadd.html', context)
+    return render(request, 'app/incubator.html', context)
+
+def startup_member_add(request):
+    user = request.user
+
+    form = StartupMemberForm()
+    context = {
+        'form':form,
+    }
+    if request.method == 'POST':
+        profile = user.startup
+        form = StartupMemberForm(request.POST)
+        if form.is_valid():
+            print request.POST['user']
+            for user in request.POST['user']:
+                userp = get_object_or_404(User, pk=user)
+                f = StartupMember.objects.create(access_level = request.POST['access_level'], user = userp,
+                        startup = profile, role = request.POST['role'])
+
+
+            return HttpResponseRedirect(reverse('app:dashboard'))
+        else :
+            context = {
+            'form'  : form,
+            }
+
+    return render(request, 'app/startup.html', context)
 
 
 
