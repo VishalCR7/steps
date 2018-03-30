@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^request/startup/$', views.startup_request, name='startup_request'),
     url(r'^update/incubator/$', views.incubator_update, name='incubator_update'),
     url(r'^profile/(?P<username>\w+)/$', profile, name='profile'),
+    url(r'^update/startup/$', views.startup_update, name='startup_update'),
+    url(r'^update/user/$', views.user_update, name='user_update'),
 ]

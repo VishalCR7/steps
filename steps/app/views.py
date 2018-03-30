@@ -273,3 +273,88 @@ def leaderboard(request):
 def comparator(request):
     return render(request, 'app/comparator.html')
 
+
+def incubator_update(request):
+    user = request.user
+    profile = user.incubator
+    form = IncubatorForm(instance=profile)
+    context = {
+        'form':form,
+    }
+    if request.method == 'POST':
+        form = IncubatorForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('app:incubator_update'))
+        else :
+            context = {
+            'form'  : form,
+            }
+    else:
+        form = IncubatorForm(instance=profile)
+        context = {
+            'form'  : form,
+        }
+        return render(request, 'app/profile_update.html', context)
+
+    return render(request, 'app/profile_update.html', context)
+
+def startup_update(request):
+    user = request.user
+    profile = user.startup
+    form = StartupForm(instance=profile)
+    context = {
+        'form':form,
+    }
+    if request.method == 'POST':
+        form = StartupForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('app:startup_update'))
+        else :
+            context = {
+            'form'  : form,
+            }
+    else:
+        form = IncubatorForm(instance=profile)
+        context = {
+            'form'  : form,
+        }
+        return render(request, 'app/profile_update.html', context)
+
+    return render(request, 'app/profile_update.html', context)
+
+def user_update(request):
+    if request.method == 'POST':
+        user = request.user
+        profile = UserProfile.objects.get(user=user)
+        userform = UserForm(request.POST, instance=user)
+        profileform = UserProfileForm(request.POST, instance=profile)
+        if userform.is_valid() and profileform.is_valid():
+            userform.save()
+            f = profileform.save(commit=False)
+            f.user = request.user
+            f.save()
+            context = {
+            'userform'  : userform,
+            'profileform': profileform
+            }
+            return HttpResponseRedirect(reverse('app:user_update'))
+        else :
+            context = {
+            'userform'  : userform,
+            'profileform': profileform
+            }
+            return render(request, 'app/editProfile.html', context)
+    else:
+        profile = UserProfile.objects.get(user = request.user)
+        userform = UserForm(instance=request.user)
+        profileform = UserProfileForm(instance=profile)
+        context = {
+            'userform'  : userform,
+            'profileform': profileform
+        }
+        return render(request, 'app/editProfile.html', context)
+
+
+
