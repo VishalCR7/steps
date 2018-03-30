@@ -70,3 +70,13 @@ def activate(request, uidb64, token):
 def index(request):
     return render(request, 'app/index.html')
 
+  
+def dashboard(request):
+    return render(request, 'app/dashboard.html')
+
+def incubator(request):
+    return render(request, 'app/incubator.html')
+
+def startup(request):
+    return render(request, 'app/startup.html')
+

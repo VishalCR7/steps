@@ -1,0 +1,115 @@
+body{
+	margin:0px;
+	padding: 0px;
+}
+ul{
+	list-style: none;
+}
+.container{
+	margin-top: 150px;
+	display: flex;
+	justify-content: space-around;
+}
+.mock_div{
+	height: auto;
+}
+.profile{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding-top: 20px;
+}
+.profile-image{
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	background-image: url(./image/profile.jpg);
+	background-size: cover;
+	background-position: center;
+}
+.profile-data{
+	margin-top: 10px;
+}
+.incubators, .startups{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.card{
+	box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
+	margin-top: 5px;
+	cursor: pointer;
+}
+.card:hover, .newscard:hover{
+	box-shadow: 0 4px 6px rgba(0,0,0,0.2), 0 0px 1px rgba(0,0,0,0.02);
+}
+.newscard{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: flex;
+	width: 100%;
+	box-shadow:  0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
+	cursor: pointer;
+}
+.newscard-image{
+	cursor: pointer;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-image: url(./image/profile.jpg);
+	background-size: cover;
+	background-position: center;
+}
+.hamburger{
+	position: absolute;
+	right: 20px;
+	top:20px;
+	z-index: 12;
+	cursor: pointer;
+}
+.material-icons{
+	font-size: 30px !important;
+}
+.overlay-options{
+	position: absolute;
+	top:0;
+	z-index:11;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.overlay-options div{
+	color:white;
+}
+.overlay-toggle{
+	display: none;
+}
+.overlay{
+	width: 98.9vw;
+	height: 100%;
+	background-color: black;
+	opacity: 0.5;
+	z-index:10;
+	position: absolute;
+	top:0;
+}
+ul li h3{
+	text-decoration: none;
+	display: inline-block;
+	cursor: pointer;
+}
+ul li h3::after{
+	content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width .3s;
+}
+ul li h3:hover::after{
+	width: 100%;
+}
