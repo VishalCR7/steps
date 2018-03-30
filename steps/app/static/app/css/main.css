@@ -93,6 +93,7 @@ ul li a:hover::after{
 .profile-info p{
 	padding-left: 0px;
 }
+
 .feed{
 	margin-top: 60px;
 	display: flex;
@@ -131,15 +132,30 @@ ul li a:hover::after{
 	height: 80px;
 	overflow: hidden;
 }
+
+.newscard-active{
+	height: auto;
+}
+
+.newscard-body{
+	overflow: hidden;
+}
 .view-more{
 	cursor: pointer;
 	align-self: flex-end;
+	position: absolute;
+	right: 20px;
 }
 .startup-list{
 	display: flex;
 	width: 100%;
 	height: 60px;
 	align-items: center;
+}
+
+.btn-contact{
+    position: absolute !important;
+    right: 25px !important;
 }
 .startup-logo{
 	width: 40px;
