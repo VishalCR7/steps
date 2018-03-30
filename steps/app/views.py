@@ -190,7 +190,7 @@ def incubator_request(request):
             file.incubator = incubator
             file.save()
             context = {
-                status: 'success'
+                'status': 'success'
             }
         else:
             context = {
@@ -204,8 +204,8 @@ def incubator_request(request):
 
 
 def startup_request(request):
-    form = IncubatorRequestForm()
-    fileform = IncubatorFileForm()
+    form = StartupRequestForm()
+    fileform = StartupFileForm()
     locationform = LocationForm()
     context = {
         'form': form,
@@ -239,7 +239,7 @@ def startup_request(request):
                 'fileform': fileform,
                 'locationform':locationform
             }
-    return render(request, 'app/incubator_request.html')
+    return render(request, 'app/incubator_request.html', context)
 
 
 def incubator(request):
