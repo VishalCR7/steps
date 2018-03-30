@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>S.T.E.P.S</title>
+	<link rel="stylesheet" type="text/css" href="./main.css">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+ 	
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 	
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfokcmBFjX0YO4zctNyb4VuYqgHGyyLMo&callback=initMap"
+    async defer></script>
+</head>
+
+<body>
+	<div class="popup_modal">
+		<div class="message_startup">
+			<h4>{{ startup Name }}</h4>
+			<div class="form-group">
+  				<label for="message">Send Message</label>
+  				<textarea class="form-control" rows="5" id="message"></textarea>
+			</div>
+			<button><i class="material-icons">send</i></button>
+		</div>
+
+		<div class="add_event">
+			<h4>Create a new Event</h4>
+			<div class="form-group">
+				<label for="title">Title : </label>
+				<input type="text" rows="5" id="title">
+				<label>Image</label>
+				<input type="file" name="pic">
+				<label for="description">description</label>
+  				<textarea class="form-control" rows="5" id="description"></textarea>
+			</div>
+			<button><i class="material-icons">add_circle_outline</i></button>
+		</div>
+	</div>
+
+<!--remove this after use 	
+
+	<div class="overlay-toggle">
+		<div class="overlay"></div>
+		<div class="overlay-options">
+			<div>
+				<ul>
+					<li><h3>Compare</h3></li>
+					<li><h3>Leader Board</h3></li>
+					<li><h3>Add Event</h3></li>
+					<li><h3>Logout</h3></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="profile">
+		<div class="cover-image col-sm-12">
+		</div>
+		<div class="profile-image col-sm-offset-1">
+		</div>
+		<div class="navbar col-sm-12 ">
+			<ul class="list-inline navbar-links col-sm-offset-3">
+				<li><a href="#">Incubated Startups</a></li>
+				<li><a href="#">Fundings</a></li>
+				<li><a href="#">Activities</a></li>
+			</ul>
+		</div>
+		<div class="hamburger">
+			<p class="glyphicon glyphicon-menu-hamburger"></p>
+		</div>
+	</div>
+	<div class="profile-info col-sm-12">
+		<h2 class="col-sm-offset-1">Name of Incubator</h2>
+		<p class="col-sm-10 col-sm-offset-1">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</p>
+
+		<div class="col-sm-6 incubated col-sm-offset-1">
+			<h3 >Incubated StartUps</h3>
+			<div class="newscard">
+					<div class="newscard-image col-sm-offset-1" data-toggle="tooltip" title="View Profile">
+					</div>
+					<div class="newscard-body col-sm-offset-1">
+						<h5 class="newscard-title">{{ Incubated StartUp Name }}</h5>
+						<div>
+							<button class="btn-startup">Message</button>
+							<button class="btn-startup">View activity</button>
+						</div>
+					</div>
+			</div>
+
+			<div class="newscard">
+					<div class="newscard-image col-sm-offset-1" data-toggle="tooltip" title="View Profile">
+					</div>
+					<div class="newscard-body col-sm-offset-1">
+						<h5 class="newscard-title">{{ Incubated StartUp Name }}</h5>
+						<button class="btn-startup">Message</button>
+						<button class="btn-startup">View activity</button>
+					</div>
+			</div>
+		</div>
+
+		<div class="row col-sm-12 feed">
+			<div class="newsfeed col-sm-5">
+
+				<h3>News Feed</h3>
+				<div class="newscard">
+					<div class="newscard-image col-sm-offset-1" data-toggle="tooltip" title="View Profile">
+					</div>
+					<div class="newscard-body col-sm-offset-1">
+						<h5 class="newscard-title">{{ Personilzed News Title }}</h5>
+						<p class="newscard-text">{{ description of the news }}</p>
+					</div>
+					<div class="glyphicon glyphicon-chevron-down view-more col-sm-offset-4" data-toggle="tooltip" title="Know More"></div>
+				</div>
+				<br>
+
+				<div class="newscard">
+					<div class="newscard-image col-sm-offset-1" data-toggle="tooltip" title="View Profile">
+					</div>
+					<div class="newscard-body col-sm-offset-1">
+						<h5 class="newscard-title">{{ Personilzed News Title }}</h5>
+						<p class="newscard-text">{{ description of the news }}</p>
+					</div>
+					<div class="glyphicon glyphicon-chevron-down view-more col-sm-offset-4" data-toggle="tooltip" title="Know More"></div>
+				</div>
+				<br>
+
+				<div class="newscard">
+					<div class="newscard-image col-sm-offset-1" data-toggle="tooltip" title="View Profile">
+					</div>
+					<div class="newscard-body col-sm-offset-1">
+						<h5 class="newscard-title">{{ Personilzed News Title }}</h5>
+						<p class="newscard-text">{{ description of the news }}</p>
+					</div>
+					<div class="glyphicon glyphicon-chevron-down view-more col-sm-offset-4" data-toggle="tooltip" title="Know More"></div>
+				</div>
+				<br>
+
+				<div class="add-event">
+					<h4>Add a new Event</h4>
+					<div class="btn-add_event">
+						<p class="glyphicon glyphicon-plus"></p>
+					</div>
+				</div>
+			</div>
+			<div class="info col-sm-4">
+				<div>
+					<h3 class="head-startup">Recommended StartUps for you : </h3>
+					<div class="search_startups">
+						<input type="input" placeholder="Search for startups">
+					</div>
+					<ul>
+						<li class="startup-list startup_list-items">
+							<div class="startup-logo"></div>
+							<p class="col-sm-offset-1">{{ StartUp Name }}</p>
+							<button class="col-sm-offset-3 btn-contact">Contact</button>
+						</li>
+
+						<li class="startup-list startup_list-items">
+							<div class="startup-logo"></div>
+							<p class="col-sm-offset-1">{{ StartUp Name }}</p>
+							<button class="col-sm-offset-3 btn-contact">Contact</button>
+						</li>
+
+						<li class="startup-list startup_list-items">
+							<div class="startup-logo"></div>
+							<p class="col-sm-offset-1">{{ StartUp Name }}</p>
+							<button class="col-sm-offset-3 btn-contact">Contact</button>
+						</li>
+
+						<li class="startup-list startup_list-items">
+							<div class="startup-logo"></div>
+							<p class="col-sm-offset-1">{{ StartUp Name }}</p>
+							<button class="col-sm-offset-3 btn-contact">Contact</button>
+						</li>
+
+						<li class="search-startups"><p>Search for StartUps</p></li>
+					</ul>
+				</div>
+				<br>
+				<div>
+					<h3>Members</h3>
+					<ul>
+						<li class="startup-list">
+							<div class="startup-logo"></div>
+							<p class="col-sm-offset-1">{{ Member Name }}</p>
+						</li>
+
+						<li class="startup-list">
+							<div class="startup-logo"></div>
+							<p class="col-sm-offset-1">{{ Member Name }}</p>
+						</li>
+
+						<li class="startup-list">
+							<div class="startup-logo"></div>
+							<p class="col-sm-offset-1">{{ Member Name }}</p>
+						</li>
+
+						<li class="search-startups"><p>View More...</p></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+	<br>
+	<h3 class="col-sm-offset-1">Locate StartUps Near You</h3>
+	<div id="map" class="col-sm-8 col-sm-offset-2"></div>
+-->
+</body>
+<script src="./main.js"></script>
+<script>
+	 var map;
+      function initMap() {
+      	myLatLng = {lat:20.2255431, lng: 85.74091600000001};
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: myLatLng,
+          zoom: 8,
+          disableDefaultUI: true,
+          zoomControl: true
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'You are here'
+        });
+      }
+</script>
+</html>
