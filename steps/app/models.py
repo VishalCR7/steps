@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -132,6 +133,102 @@ class Experience(models.Model):
 
 
 
+# models for Startup
+class Startup(models.Model):
+    user  = models.OneToOneField(User,related_name='startup', on_delete=models.CASCADE)
+    name  = models.CharField(max_length=200)
+    website = models.URLField(blank=True, null=True)
+    short_description = models.CharField(max_length = 300)
+    description = models.TextField(blank=True,null=True)
+    request_designation = models.CharField(max_length=200)
+    request_user = models.ForeignKey(User, related_name='startup_request', blank=True,null=True,on_delete=models.SET_NULL)
+    tags = models.ManyToManyField(Tag, related_name='startups', blank=True)
+    location = models.OneToOneField(Location, on_delete=models.CASCADE)
+    email = models.EmailField(blank=False)
+    status = models.CharField(max_length=10, choices=STATUS_TYPES, default='S')
+    members = models.ManyToManyField(User, related_name='startup_members', through='StartupMember')
+    is_incubated = models.BooleanField(default=False)
+
+
+class StartupFile(models.Model):
+    title = models.CharField(max_length=50)
+    file_added = models.FileField(blank=False,upload_to='media/startups/docs')
+    startup = models.ForeignKey(Startup, on_delete=models.CASCADE )
+    def __str__(self):
+        return self.title
+
+
+class StartupsImage(models.Model):
+    title = models.CharField(max_length=50)
+    file_added = models.ImageField(blank=False,upload_to='media/startups/imgs')
+    startup = models.ForeignKey(Startup, on_delete=models.CASCADE )
+    def __str__(self):
+        return self.title
+
+
+class StartupMember(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    startup = models.ForeignKey(Startup, on_delete=models.CASCADE)
+    access_level = models.CharField(max_length=10, default='M', choices=ACCESS_TYPES)
+    role = models.CharField(max_length=100)
+    joining_date = models.DateTimeField(auto_now_add=True)
+
+
+class StartupAchievement(models.Model):
+    startup = models.ForeignKey(Startup, related_name='achievements', on_delete=models.CASCADE)
+    value = models.TextField(blank=True)
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title + '-' + self.startup.name
+
+    class Meta:
+        verbose_name_plural = "Achievements - Startup"
+        ordering = ["startup"]
+
+
+class StartupContact(models.Model):
+    TYPES = (
+        ('Mob', 'Mobile No.'),
+        ('Email', 'Email'),
+    )
+    contact_type = models.CharField(max_length=10, choices=TYPES, verbose_name="Contact Type")
+    startup = models.ForeignKey(Startup, related_name='contacts', on_delete=models.CASCADE)
+    value = models.TextField()
+    visibility = models.CharField(max_length=10, default='All', choices=VIS_TYPES, verbose_name="Contact Visibility")
+
+    def __str__(self):
+        return self.contact_type + '-' + self.startup.name
+
+    class Meta:
+        verbose_name_plural = "Contacts - Startup"
+        ordering = ["startup"]
+
+
+class StartupSocial(models.Model):
+    TYPES = (
+        ('FB', 'Facebook'),
+        ('TW', 'Twitter'),
+        ('IN', 'Instagram'),
+        ('SC', 'Snap Chat'),
+        ('LI', 'Linked In'),
+        ('GH', 'Github'),
+    )
+
+    social_type = models.CharField(max_length=10, choices=TYPES, verbose_name="Contact Type")
+    startup = models.ForeignKey(Startup, related_name='socials', on_delete=models.CASCADE)
+    value = models.URLField()
+    visibility = models.CharField(max_length=10, default='All', choices=VIS_TYPES, verbose_name="Social Visibility")
+
+    def __str__(self):
+        return self.social_type + '-' + self.startup.name
+
+    class Meta:
+        verbose_name_plural = "Social Accounts - Startup"
+
+
+
+
 
 # models for Incubator
 class Incubator(models.Model):
@@ -149,6 +246,30 @@ class Incubator(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_TYPES, default='S')
     members = models.ManyToManyField(User, related_name='incubator_members', through='IncubatorMember')
     followers = models.ManyToManyField(User, related_name='incubator_follows')
+    ratings = models.ManyToManyField(User, related_name='rated_incubators',through='IncubatorRating')
+    incubated_startup = models.ManyToManyField(Startup, related_name = 'incubators', through='IncubatorStartup')
+
+
+class IncubatorRating(models.Model):
+    RATING_TYPES = (
+        (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5),
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    incubator = models.ForeignKey(Incubator, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=RATING_TYPES)
+
+
+class IncubatorStartup(models.Model):
+
+    startup = models.ForeignKey(Startup, on_delete=models.CASCADE)
+    incubator = models.ForeignKey(Incubator, on_delete=models.CASCADE)
+    incubated_on = models.DateField(auto_now_add=True)
+    incubated_upto = models.DateField(blank=True)
+    is_incubated = models.BooleanField(default=True)
 
 
 class IncubatorMember(models.Model):
@@ -251,102 +372,6 @@ class IncubatorPost(models.Model):
 
 
 
-
-# models for Startup
-class Startup(models.Model):
-    user  = models.OneToOneField(User,related_name='startup', on_delete=models.CASCADE)
-    name  = models.CharField(max_length=200)
-    website = models.URLField(blank=True, null=True)
-    short_description = models.CharField(max_length = 300)
-    description = models.TextField(blank=True,null=True)
-    request_designation = models.CharField(max_length=200)
-    request_user = models.ForeignKey(User, related_name='startup_request', blank=True,null=True,on_delete=models.SET_NULL)
-    tags = models.ManyToManyField(Tag, related_name='startups', blank=True)
-    location = models.OneToOneField(Location, on_delete=models.CASCADE)
-    email = models.EmailField(blank=False)
-    status = models.CharField(max_length=10, choices=STATUS_TYPES, default='S')
-    members = models.ManyToManyField(User, related_name='startup_members', through='StartupMember')
-
-
-class StartupFile(models.Model):
-    title = models.CharField(max_length=50)
-    file_added = models.FileField(blank=False,upload_to='media/startups/docs')
-    startup = models.ForeignKey(Startup, on_delete=models.CASCADE )
-    def __str__(self):
-        return self.title
-
-
-class StartupsImage(models.Model):
-    title = models.CharField(max_length=50)
-    file_added = models.ImageField(blank=False,upload_to='media/startups/imgs')
-    startup = models.ForeignKey(Startup, on_delete=models.CASCADE )
-    def __str__(self):
-        return self.title
-
-
-class StartupMember(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    startup = models.ForeignKey(Startup, on_delete=models.CASCADE)
-    access_level = models.CharField(max_length=10, default='M', choices=ACCESS_TYPES)
-    role = models.CharField(max_length=100)
-    joining_date = models.DateTimeField(auto_now_add=True)
-
-
-class StartupAchievement(models.Model):
-    startup = models.ForeignKey(Startup, related_name='achievements', on_delete=models.CASCADE)
-    value = models.TextField(blank=True)
-    title = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.title + '-' + self.startup.name
-
-    class Meta:
-        verbose_name_plural = "Achievements - Startup"
-        ordering = ["startup"]
-
-
-class StartupContact(models.Model):
-    TYPES = (
-        ('Mob', 'Mobile No.'),
-        ('Email', 'Email'),
-    )
-    contact_type = models.CharField(max_length=10, choices=TYPES, verbose_name="Contact Type")
-    startup = models.ForeignKey(Startup, related_name='contacts', on_delete=models.CASCADE)
-    value = models.TextField()
-    visibility = models.CharField(max_length=10, default='All', choices=VIS_TYPES, verbose_name="Contact Visibility")
-
-    def __str__(self):
-        return self.contact_type + '-' + self.startup.name
-
-    class Meta:
-        verbose_name_plural = "Contacts - Startup"
-        ordering = ["startup"]
-
-
-class StartupSocial(models.Model):
-    TYPES = (
-        ('FB', 'Facebook'),
-        ('TW', 'Twitter'),
-        ('IN', 'Instagram'),
-        ('SC', 'Snap Chat'),
-        ('LI', 'Linked In'),
-        ('GH', 'Github'),
-    )
-
-    social_type = models.CharField(max_length=10, choices=TYPES, verbose_name="Contact Type")
-    startup = models.ForeignKey(Startup, related_name='socials', on_delete=models.CASCADE)
-    value = models.URLField()
-    visibility = models.CharField(max_length=10, default='All', choices=VIS_TYPES, verbose_name="Social Visibility")
-
-    def __str__(self):
-        return self.social_type + '-' + self.startup.name
-
-    class Meta:
-        verbose_name_plural = "Social Accounts - Startup"
-
-
-
-
 # Models for CHAT
 class Room(models.Model):
     room_name = models.CharField(max_length=20, unique=True)
@@ -368,3 +393,10 @@ class Message(models.Model):
     message = models.CharField(max_length=200)
     deleted = models.BooleanField(default=False)
     timestamp = models.DateTimeField(default=timezone.now, db_index=True)
+
+
+class ConnectionRequest(models.Model):
+    startup = models.ForeignKey(Startup, on_delete=models.CASCADE)
+    incubator = models.ForeignKey(Incubator, on_delete=models.CASCADE)
+    created_on = models.DateField(auto_now_add=True)
+    status = models.CharField(max_length=10, choices=STATUS_TYPES, default='S')
