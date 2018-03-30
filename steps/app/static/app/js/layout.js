@@ -163,6 +163,7 @@ var Layout = function () {
             };
         },
     };
+    
 }();
 
 $(document).ready(function() {
