@@ -27,4 +27,8 @@ urlpatterns = [
     url(r'^update_achievement/$', views.achievement_add, name = 'update_achievement'),
     url(r'^update_social/$', views.social_add, name = 'update_social'),
     url(r'^add/incubator/$', views.incubator_member_add, name='incubator_member_add'),
+    url(r'^approve/incubator/(?P<id>[0-9]+)/$', views.approve_incubator, name='approve_incubator'),
+    url(r'^reject/incubator/(?P<id>[0-9]+)/$', views.reject_incubator, name='reject_incubator'),
+    url(r'^approve/incubator/(?P<id>[0-9]+)/$', views.approve_startup, name='approve_incubator'),
+    url(r'^reject/incubator/(?P<id>[0-9]+)/$', views.reject_startup, name='reject_incubator'),
 ]

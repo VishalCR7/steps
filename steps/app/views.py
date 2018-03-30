@@ -76,19 +76,6 @@ def index(request):
 def dashboard(request):
     user = request.user
     feed = IncubatorPost.objects.all()
-    if hasattr(user, 'userprofile'):
-        incubators = user.incubator_members.all()
-        startups = user.startup_members.all()
-        profile = user.userprofile
-        context = {
-            'incubators': incubators,
-            'startups': startups,
-            'profile': profile,
-            'feed': feed,
-            'type': 'U'
-        }
-        print startups
-        return render(request,'app/dashboard.html', context)
     if hasattr(user, 'incubator'):
         profile = user.incubator
         context = {
@@ -108,19 +95,25 @@ def dashboard(request):
             'recommended': recommend_incubator(profile)
         }
         return render(request, 'app/startup.html', context)
+    if hasattr(user, 'userprofile'):
+        incubators = user.incubator_members.all()
+        startups = user.startup_members.all()
+        profile = user.userprofile
+        context = {
+            'incubators': incubators,
+            'startups': startups,
+            'profile': profile,
+            'feed': feed,
+            'type': 'U'
+        }
+        print startups
+        return render(request,'app/dashboard.html', context)
+
 
 
 @login_required(login_url='/')
 def profile(request, username):
     user  = get_object_or_404(User, username=username)
-    if hasattr(user, 'userprofile'):
-        profile = get_object_or_404(UserProfile, user=user)
-        context = {
-            'profile': profile,
-            'userp': user,
-            'type': 'U'
-        }
-        return render(request, "app/userprofile.html", context)
     if hasattr(user, 'incubator'):
         profile = get_object_or_404(Incubator, user=user)
         posts = profile.posts.all()
@@ -139,6 +132,14 @@ def profile(request, username):
             'type': 'S'
         }
         return render(request, "app/startup_profile.html", context)
+    if hasattr(user, 'userprofile'):
+        profile = get_object_or_404(UserProfile, user=user)
+        context = {
+            'profile': profile,
+            'userp': user,
+            'type': 'U'
+        }
+        return render(request, "app/userprofile.html", context)
 
 def incubatorid():
     name = 'INC'
@@ -513,3 +514,36 @@ def incubator_member_add(request):
             }
 
     return render(request, 'app/memberadd.html', context)
+
+
+
+def approve_incubator(request,id):
+    incubator = get_object_or_404(Incubator, pk=id)
+    incubator.status = 'A'
+    incubator.save()
+    IncubatorMember.objects.create(access_level='A', user = incubator.request_user,
+            role = incubator.request_designation, incubator=incubator)
+    return HttpResponseRedirect(reverse('admin:index'))
+
+
+def reject_incubator(request,id):
+    incubator = get_object_or_404(Incubator, pk=id)
+    incubator.status = 'R'
+    incubator.save()
+    return HttpResponseRedirect(reverse('admin:index'))
+
+
+def approve_startup(request,id):
+    startup = get_object_or_404(Startup, pk=id)
+    startup.status = 'A'
+    startup.save()
+    StartupMember.objects.create(access_level='A', user = startup.request_user,
+            role = startup.request_designation, startup=startup)
+    return HttpResponseRedirect(reverse('admin:index'))
+
+
+def reject_startup(request,id):
+    startup = get_object_or_404(Startup, pk=id)
+    startup.status = 'A'
+    startup.save()
+    return HttpResponseRedirect(reverse('admin:index'))
