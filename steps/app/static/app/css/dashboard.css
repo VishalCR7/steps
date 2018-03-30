@@ -24,7 +24,7 @@ ul{
 	width: 150px;
 	height: 150px;
 	border-radius: 50%;
-	background-image: url(./image/profile.jpg);
+	background-image: url(../img/profile.jpg);
 	background-size: cover;
 	background-position: center;
 }
@@ -58,7 +58,7 @@ ul{
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
-	background-image: url(./image/profile.jpg);
+	background-image: url(../img/profile.jpg);
 	background-size: cover;
 	background-position: center;
 }
