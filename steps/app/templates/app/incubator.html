@@ -48,11 +48,11 @@
         	<ul class="nav navbar-nav navbar-nav-right">
         		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Home</a></li>
         		{% if not user.is_authenticated %}
-        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Login</a></li>
-        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Register</a></li>
+        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Compare</a></li>
+        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Leader Board</a></li>
         		{% endif %}
-        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Register as a Startup</a></li>
-        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">About Us</a></li>
+        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Add Event</a></li>
+        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Logout</a></li>
         	</ul>
         </div>
     </div>
@@ -92,7 +92,7 @@
 	</p>
 
 	<div class="col-sm-6 incubated col-sm-offset-1">
-		<h3 >Incubated StartUps</h3>
+		<h3 >Incubator</h3>
 		<div class="newscard">
 			<div class="newscard-image col-sm-offset-1" data-toggle="tooltip" title="View Profile">
 			</div>
@@ -102,16 +102,6 @@
 					<button class="btn-startup">Message</button>
 					<button class="btn-startup">View activity</button>
 				</div>
-			</div>
-		</div>
-
-		<div class="newscard">
-			<div class="newscard-image col-sm-offset-1" data-toggle="tooltip" title="View Profile">
-			</div>
-			<div class="newscard-body col-sm-offset-1">
-				<h5 class="newscard-title">Incubated StartUp Name</h5>
-				<button class="btn-startup">Message</button>
-				<button class="btn-startup">View activity</button>
 			</div>
 		</div>
 	</div>
@@ -220,6 +210,7 @@
 	</div>
 
 </div>
+<h3 class="col-sm-offset-2">Startups near you : </h3>
 <div id="map" class="col-sm-8 col-sm-offset-2"></div>
 </body>
 <script>
