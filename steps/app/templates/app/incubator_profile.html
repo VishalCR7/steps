@@ -115,3 +115,45 @@
 </div>
 </body>
 {% endblock content %}
+
+{% block script%}
+
+<script type="text/javascript">
+  var acc = document.getElementsByClassName("newscard");
+  var i;
+  for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function() {
+      var bool=false;
+      if (this.classList.contains("newscard-active") == true){
+        bool=true;
+      }
+      for (j = 0; j < acc.length; j++){
+        if (acc[j].classList.contains("newscard-active")){
+          acc[j].classList.toggle("newscard-active");
+          var panelOpen = acc[j].nextElementSibling;
+          if (panelOpen.style.maxHeight){
+            panelOpen.style.maxHeight = null;
+          } else {
+            panelOpen.style.maxHeight = panelOpen.scrollHeight + "px";
+          }
+        }
+      }
+      var panel = this.nextElementSibling;
+      this.classList.toggle("newscard-active");
+      if (panel.style.maxHeight){
+        panel.style.maxHeight = null;
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+      if (bool == true){
+        this.classList.toggle("newscard-active");
+        if (panel.style.maxHeight){
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      }
+    }
+  }
+</script>
+{% endblock %}

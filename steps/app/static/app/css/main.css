@@ -92,6 +92,7 @@ ul li a:hover::after{
 }
 .profile-info p{
 	padding-left: 0px;
+	padding-right: 5px;
 }
 
 .feed{
