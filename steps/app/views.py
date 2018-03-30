@@ -95,7 +95,7 @@ def dashboard(request):
             'profile': profile,
             'feed': feed,
             'type': 'I',
-            'recommended': recommend_startup(profile) 
+            'recommended': recommend_startup(profile)
 
         }
         return render(request, 'app/incubator.html', context)
@@ -105,7 +105,7 @@ def dashboard(request):
             'profile': profile,
             'feed': feed,
             'type': 'S',
-            'recommended': recommend_incubator(profile) 
+            'recommended': recommend_incubator(profile)
         }
         return render(request, 'app/startup.html', context)
 
@@ -257,14 +257,14 @@ def comparator(request):
         i2 = User.objects.get(username=s2).incubator
         context = {
             'profile1' : i1,
-            'profile2' : i2 
+            'profile2' : i2
         }
     elif t == 'S':
         i1 = User.objects.get(username=s1).startup
         i2 = User.objects.get(username=s2).startup
         context = {
             'profile1' : i1,
-            'profile2' : i2 
+            'profile2' : i2
         }
     return render(request, 'app/comparator.html', context)
 
@@ -475,3 +475,41 @@ def social_add(request):
             achievement = StartupSocial.objects.create(value=value, social_type=typ,visibility=visibility, startup = user.startup )
             ctx = {'status': True}
         return HttpResponse(json.dumps(ctx), content_type='application/json')
+
+from dal import autocomplete
+from django.db.models import Q
+
+class UserAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = User.objects.exclude(userprofile=None)
+
+        if self.q:
+            qs = qs.filter( Q(first_name__icontains = self.q) | Q(last_name__icontains = self.q)  | Q(username__icontains = self.q)|
+                Q(first_name__contains = self.q) | Q(last_name__contains = self.q)  | Q(username__contains = self.q))
+        return qs
+
+
+def incubator_member_add(request):
+    user = request.user
+
+    form = IncubatorMemberForm()
+    context = {
+        'form':form,
+    }
+    if request.method == 'POST':
+        profile = user.incubator
+        form = StartupForm(request.POST)
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.incubator = profile
+            form.save_m2m()
+            f.save()
+
+
+            return HttpResponseRedirect(reverse('app:incubator_member_add'))
+        else :
+            context = {
+            'form'  : form,
+            }
+
+    return render(request, 'app/memberadd.html', context)
