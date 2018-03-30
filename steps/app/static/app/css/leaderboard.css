@@ -9,10 +9,6 @@ body {
   height: 100%;
 }
 
-body {
-  background: linear-gradient(-225deg, #22E1FF 0%, #1D8FE1 48%, #625EB1 100%);
-}
-
 .centered {
   top: 50%;
   left: 50%;
@@ -97,4 +93,14 @@ body {
   height: 75%;
   background-color: #FFFFFF;
   position:absolute;
+
+  display: flex;
+  justify-content: center;
+}
+ul li a{
+  color:black;
+  cursor: pointer;
+}
+ul li a:hover{
+  text-decoration: underline;
 }
