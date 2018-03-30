@@ -369,7 +369,7 @@ class IncubatorPost(models.Model):
 
     class Meta:
         verbose_name_plural = "Posts - Incubator"
-        ordering = ["incubator"]
+        ordering = ["created_on"]
 
 
 class Comment(models.Model):
