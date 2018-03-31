@@ -554,6 +554,14 @@ def approve_incubator(request,id):
     incubator.save()
     IncubatorMember.objects.create(access_level='A', user = incubator.request_user,
             role = incubator.request_designation, incubator=incubator)
+    current_site = get_current_site(request)
+    message = render_to_string('app/approve_email.html', {
+                'user':incubator,
+            })
+    mail_subject = 'STEPS-Incubator Request Approved.'
+    to_email = startup.email
+    email = EmailMessage(mail_subject, message, to=[to_email])
+    email.send()
     return HttpResponseRedirect(reverse('admin:index'))
 
 
@@ -570,6 +578,17 @@ def approve_startup(request,id):
     startup.save()
     StartupMember.objects.create(access_level='A', user = startup.request_user,
             role = startup.request_designation, startup=startup)
+    current_site = get_current_site(request)
+    message = render_to_string('app/approve_email.html', {
+                'user':startup,
+                'domain':current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+    mail_subject = 'STEPS-Startup Request Approved.'
+    to_email = startup.email
+    email = EmailMessage(mail_subject, message, to=[to_email])
+    email.send()
     return HttpResponseRedirect(reverse('admin:index'))
 
 
