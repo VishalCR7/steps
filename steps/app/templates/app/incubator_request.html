@@ -8,6 +8,15 @@
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfokcmBFjX0YO4zctNyb4VuYqgHGyyLMo&callback=initMap"
  async defer></script>
 
+<style>
+  #map{
+  height: 60vh;
+  margin-bottom: 50px;
+  border-radius: 2px;
+  margin-top: 10px;
+  box-shadow:  0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
+ }
+</style>
 
  <div class="header" style="width: 100vw; height: 200px; background-color:#673AB7">
    
@@ -51,12 +60,14 @@
               <label for="{{ field.auto_id }}">{{ field.label_tag }}
               </label>
               {{ field }}
-
             </div>
             {% endfor %}
+            <p>Click on the map to enter the current location of your Organization.</p>
+            <div id="map" class="col-sm-8 col-sm-offset-2"></div>
+            <br/><br/>
             <br/><hr/><br/>
             <div style="text-align:center">
-              <h3>Upload Certification Certificate</h3>
+              <h3>Certification Certificate</h3>
             </div>
             {% for field in fileform %}
             <div class="field" style="display: flex;flex-direction: column;">
@@ -83,3 +94,34 @@
     </div>
   </div>
   </section>
+
+  <script>
+    var map;
+    function initMap(){
+      myLatLng = {lat:28.7041, lng:77.1025};
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: myLatLng,
+        zoom: 8,
+        disableDefaultUI: true,
+        zoomControl: true
+      });
+    
+      google.maps.event.addListener(map, "click", function (e) {
+      var latLng = e.latLng;
+      var lat = e.latLng.lat();
+      var lng = e.latLng.lng();
+      document.getElementById('id_latitude').value = lat.toFixed(6);
+      document.getElementById('id_longitude').value = lng.toFixed(6);
+      });
+/*
+try search feature
+      var input = document.getElementById('pac-input');
+      var searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+      map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+  */
+    }
+  </script>
