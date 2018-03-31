@@ -12,7 +12,16 @@
   margin-top: 10px;
   box-shadow:  0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
  }
+ #id_latitude{
+  visibility: hidden;
+ }
+ #id_longitude{
+  visibility:hidden;
+ }
 </style>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfokcmBFjX0YO4zctNyb4VuYqgHGyyLMo&callback=initMap"
+    async defer></script>
 
 <div class="profile">
   <div class="cover-image col-sm-12" style="background-image: none;background-color: #ff6161;height: 300px;">
@@ -97,6 +106,8 @@
 {% block script %}
   <script>
     var map;
+    var markers = [];
+
     function initMap(){
       myLatLng = {lat:28.7041, lng:77.1025};
       map = new google.maps.Map(document.getElementById('map'), {
@@ -113,6 +124,36 @@
       document.getElementById('id_latitude').value = lat.toFixed(6);
       document.getElementById('id_longitude').value = lng.toFixed(6);
       });
+
+      map.addListener('click', function(event) {
+          deleteMarkers();
+          addMarker(event.latLng);
+        });
+      
+
+      function addMarker(location) {
+        var marker = new google.maps.Marker({
+          position: location,
+          map: map
+        });
+        markers.push(marker);
+      }
+
+      function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+        }
+      }
+      function clearMarkers() {
+        setMapOnAll(null);
+      }
+      function showMarkers() {
+        setMapOnAll(map);
+      }
+      function deleteMarkers() {
+        clearMarkers();
+        markers = [];
+      }
 /*
 try search feature
       var input = document.getElementById('pac-input');
