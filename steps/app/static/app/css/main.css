@@ -68,11 +68,11 @@ ul li a{
 }
 ul li a::after{
 	content: '';
-    display: block;
-    width: 0;
-    height: 2px;
-    background: #000;
-    transition: width .3s;
+	display: block;
+	width: 0;
+	height: 2px;
+	background: #000;
+	transition: width .3s;
 }
 ul li a:hover::after{
 	width: 100%;
@@ -100,6 +100,10 @@ ul li a:hover::after{
 	display: flex;
 	justify-content: space-around;
 }
+.feed-page{
+	margin-top: 0;
+}
+
 .add-event{
 	width: 100%;
 	height: 50px;
@@ -155,8 +159,8 @@ ul li a:hover::after{
 }
 
 .btn-contact{
-    position: absolute !important;
-    right: 25px !important;
+	position: absolute !important;
+	right: 25px !important;
 }
 .startup-logo{
 	width: 40px;
@@ -202,38 +206,48 @@ ul li a:hover::after{
 	margin-bottom: 50px;
 	border-radius: 2px;
 	box-shadow:  0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
- }
- .popup_modal{
- 	border:1px solid black;
- 	width: 100vw;
- 	height: 100vh;
- 	display: flex;
- 	justify-content: center;
- 	align-items: center;
- }
- .message_startup, .add_event{
- 	width: 40vw;
- 	margin-left: 5vw;
- 	display: none;
- }
- .message-container, .event-container, .contact-container{
- 	z-index: 20000;
- 	position: fixed;
- 	width: 100vw;
- 	margin-left: 36vw;
- 	margin-top: 250px;
- 	display: none;
- }
- .event-container{
- 	margin-left: 20vw;
- 	margin-top: 200px;
- }
- .contact-container{
- 	margin-left: 20vw;
- 	margin-top: 200px;
- }
- 
- .add_member-container{
- 	width: 50vw;
- 	display: none;
- }
+}
+.popup_modal{
+	border:1px solid black;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.message_startup, .add_event{
+	width: 40vw;
+	margin-left: 5vw;
+	display: none;
+}
+.message-container, .event-container, .contact-container{
+	z-index: 20000;
+	position: fixed;
+	width: 100vw;
+	margin-left: 36vw;
+	margin-top: 250px;
+	display: none;
+}
+.event-container{
+	margin-left: 20vw;
+	margin-top: 200px;
+}
+.contact-container{
+	margin-left: 20vw;
+	margin-top: 200px;
+}
+
+.add_member-container{
+	width: 50vw;
+	display: none;
+}
+
+.page-heading{
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+.page-heading h3{
+	margin: 0;
+}

@@ -599,3 +599,37 @@ def reject_startup(request,id):
     startup.status = 'A'
     startup.save()
     return HttpResponseRedirect(reverse('admin:index'))
+
+def all_incubators(request):
+    incu = Incubator.objects.all()
+    context = {
+            'incubators' : incu
+            }
+    return render(request, 'app/all_incubators.html', context) 
+
+def all_startups(request):
+    start = Startup.objects.all()
+    context = {
+            'startups' : start
+            }
+    return render(request, 'app/all_startups.html', context)
+
+def search_incubator(request):
+    q = request.GET.get('q', '')
+    if q != '':
+        inc = Incubator.objects.filter(name__icontains=q)
+        context = {
+                'profile' : inc
+                }
+        return render(request, 'app/search.html', context)
+    return render(request, 'app/searchform.html')
+
+def search_startup(request):
+    q = request.GET.get('q', '')
+    if q != '':
+        inc = Startup.objects.filter(name__icontains=q)
+        context = {
+                'profile' : inc
+                }
+        return render(request, 'app/search.html', context)
+    return render(request, 'app/searchform.html')    

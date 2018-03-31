@@ -32,4 +32,8 @@ urlpatterns = [
     url(r'^approve/incubator/(?P<id>[0-9]+)/$', views.approve_startup, name='approve_incubator'),
     url(r'^reject/incubator/(?P<id>[0-9]+)/$', views.reject_startup, name='reject_incubator'),
     url(r'^add/startup/$', views.startup_member_add, name='startup_member_add'),
+    url(r'^all/incubators/$', views.all_incubators, name='all_incubators'),
+    url(r'^all/startups/$', views.all_startups, name='all_startups'),
+    url(r'^search/startups/$', views.search_startup, name='search_startup'),
+    url(r'^search/incubators/$', views.search_incubator, name='search_incubator'),
 ]
