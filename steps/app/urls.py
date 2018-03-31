@@ -34,5 +34,9 @@ urlpatterns = [
     url(r'^follow/incubator/$', views.follow_incubator, name='follow_incubator'),
     url(r'^follow/tag/$', views.follow_tags, name='follow_tags'),
     url(r'^rate/incubator/$', views.rate_incubator, name='rate_incubator'),
+    url(r'^chat/approve/(?P<id>[0-9]+)/$', views.confirm_request, name='confirm_request'),
+    url(r'^chat/room/(?P<id>[0-9]+)/$', views.ind_room, name='ind_room'),
+    url(r'^chat/request/$', views.connection_request, name='connection_request'),
+    url(r'^chat/allroom/$', views.all_rooms, name='all_rooms'),
 
 ]

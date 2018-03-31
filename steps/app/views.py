@@ -588,3 +588,200 @@ def rate_incubator(request):
         IncubatorRating.objects.create(incubator=incubator, user = request.user, rating=rating)
         ctx = {'status': 'Added'}
     return HttpResponse(json.dumps(ctx), content_type='application/json')
+
+
+"""
+@login_required(login_url='/')
+def messages(request):
+    logg = UserProfile.objects.get(user=request.user)
+    chats = Link.objects.filter(user=request.user)
+    msg = list()
+    for j in chats:
+        ms = Message.objects.filter(links=j).order_by('-timestamp')[:1]
+        msg+= ms
+    msg1 = msg
+    for i in range(len(msg)):
+        min_idx = i
+        for j in range(i+1, len(msg)):
+            if msg[min_idx].timestamp < msg[j].timestamp:
+                min_idx = j
+        msg[i], msg[min_idx] = msg[min_idx], msg[i]
+    users = list()
+    for k in msg:
+        r = k.links.room
+        part = Link.objects.filter(room=r)
+        users+= part
+        myself = Link.objects.get(user=request.user,room=r)
+        users.remove(myself)
+    listin = zip(users,msg)
+    context = {
+    'users' : users,
+    'chats' : chats,
+    'logg' : logg,
+    'msg' : msg,
+    'listin' : listin,
+    }
+    return render(request,'app/messages.html',context)
+
+@login_required(login_url='/')
+def chatroom(request,room_id):
+    if request.method == 'POST':
+        form = MsgForm(request.POST)
+        link = Link.objects.get(room=room_id,user=request.user.id)
+        if form.is_valid():
+            msgobj = Message.objects.create(
+                links = link,
+                message = form.cleaned_data['message'],
+            )
+            return HttpResponseRedirect(reverse('app:chatroom' , kwargs={'room_id': room_id}))
+        else :
+            return HttpResponse("Input Invalid")
+    else:
+        logg = UserProfile.objects.get(user=request.user)
+        form = MsgForm()
+        room = Room.objects.get(pk=room_id)
+        links = Link.objects.filter(room_id=room_id)
+        users = list()
+        for i in links:
+            r = i.room
+            part = Link.objects.filter(room=r)
+            users+= part
+            myself = Link.objects.get(user=request.user,room=r)
+            users.remove(myself)
+        users = users[0]
+        messages = Message.objects.filter(links__room_id=room_id).order_by('timestamp')[:25]
+        context = {
+        'links' : links,
+        'users' : users,
+        'messages' : messages,
+        'form': form,
+        'logg' : logg,
+        }
+    return render(request, 'app/room.html', context)
+
+
+
+@login_required(login_url='/')
+def contacts(request):
+    if request.method == 'POST':
+        userimp = request.POST.get('user', '')
+        user = User.objects.get(username=userimp)
+        u1r = Link.objects.filter(user=request.user).values_list('room')
+        u2r = Link.objects.filter(user=user).values_list('room')
+        flag = False
+        for i in u1r:
+            if i in u2r:
+                room_id = i[0]
+                flag = True
+                break
+        if(flag==False):
+            room_count = Room.objects.all().count()
+            room_count +=1
+            room_name = "R" + str(room_count)
+            roomobj = Room.objects.create(
+                room_name = room_name,
+            )
+            room = Room.objects.filter(room_name=room_name)[0]
+            room_id = room.id
+            linkobj = Link.objects.create(
+            room = room,
+            user =  user,
+            )
+            linkobj1 = Link.objects.create(
+            room = room,
+            user =  request.user,
+            )
+        return HttpResponseRedirect(reverse('app:chatroom' , kwargs={'room_id': room_id}))
+
+    else:
+        form = LinkForm(request.POST)
+        users = User.objects.all()
+        user_list=list()
+        user_list+=users
+        myself = User.objects.get(username=request.user.username)
+        user_list.remove(myself)
+        context = {
+            'user_list' : user_list,
+            'form' : form,
+        }
+    return render(request, 'app/contacts.html', context)
+
+"""
+def connection_request(request):
+    form = ConnectionRequestForm()
+    context = {
+                    'status':False,
+                    'form': form,
+                }
+    if request.method == 'POST':
+        connection_request = ConnectionRequest.objects.filter(sender= request.user, receiver=request.POST['receiver'])
+        if connection_request:
+            context = {
+                'status':False,
+            }
+        else:
+            form  = ConnectionRequestForm(request.POST)
+            if form.is_valid():
+                connection_request = form.save(commit=False)
+                connection_request.sender = request.user
+                connection_request.save()
+                context = {
+                    'status':True,
+                    'form': form,
+                }
+    return render(request, 'app/room.html', context)
+
+
+def all_rooms(request):
+    all_requests = ConnectionRequest.objects.filter(status='S', receiver = request.user)
+    sender_messages = ConnectionRequest.objects.filter(status='A', receiver=request.user)
+    receiver_message = ConnectionRequest.objects.filter(status='A', receiver=request.user)
+    rooms = list(set(sender_messages) | set(receiver_message))
+    d=[]
+    for room in rooms:
+        a={}
+        latest_msg = Message.objects.filter(room=room).order_by('-timestamp')[0]
+        date = latest_msg.timestamp
+        a['obj'] = room
+        a['date'] = date
+        d.append(a)
+    s = sorted(d, lambda k:k['date'])
+    rooms = map(lambda k:k['obj'], s)
+
+
+    context = {
+                    'rooms':rooms,
+                    'requests': all_requests,
+                }
+
+    return render(request, 'app/messages.html', context)
+
+
+
+def ind_room(request,id):
+    room = ConnectionRequest.objects.get(pk=id)
+    msgs = room.message.all().order_by('-timestamp')
+    form = MessageForm()
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            msg = form.save(commit=False)
+            msg.user = request.user
+            msg.room = room
+            msg.save()
+            return HttpResponseRedirect(reverse('app:ind_room' , kwargs={'id':id}))
+    context = {
+                    'msgs':msgs,
+                    'form': form,
+                }
+
+    return render(request, 'app/ind_room.html', context)
+
+
+def confirm_request(request,id):
+    room = ConnectionRequest.objects.get(pk=id)
+    room.status='A'
+    room.save()
+    Message.objects.create(message="Done", user = room.receiver, room=room)
+
+    return HttpResponseRedirect(reverse('app:all_rooms'))
