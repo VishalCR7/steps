@@ -1,6 +1,14 @@
+{% extends 'app/base.html' %}
+{% block content %}
+{% load static%}
+<link href="{% static 'app/css/update_profile.css' %}" rel="stylesheet" type="text/css"/>
 
-                                    <form method="post" action=".">
-                                      {% csrf_token %}
-                                        {{form}}
-                                        <button type="submit">Send</button>
-                                    </form>
+<div class="form-style-8 col-sm-" style=" position:absolute; top:100px; margin-left: 35vw;">
+	<form method="post" action="." enctype="multipart/form-data" class="ui form">
+		{% csrf_token %}
+    	{{form}}
+    	<button type="submit">Send</button>
+	</form>
+</div>
+
+{% endblock content %}
