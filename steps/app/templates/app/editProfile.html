@@ -1,9 +1,19 @@
-<form method="post" action="" enctype="multipart/form-data" class="ui form">
+{% extends 'app/base.html' %}
+{% block content %}
+{% load static%}
+<link href="{% static 'app/css/update_profile.css' %}" rel="stylesheet" type="text/css"/>
+
+<div class="header" style="width: 100vw; height: 200px; background-color:#673AB7">
+   
+</div>
+
+<div class="form-style-8 col-sm-" style=" position:absolute; top:0px; margin-left: 35vw;">
+<form method="post" action="{% url 'app:user_update' %}" enctype="multipart/form-data" class="ui form">
               {% csrf_token %}
               <div style="text-align:center">
-      <h3>Details of the Nominee</h3>
+      <h3>Fill in User Details</h3>
     </div>
-    {% for field in form %}
+    {% for field in userform %}
                 <div class="field">
       {% for error in field.errors %}
         <div class="alert alert-danger">
@@ -15,7 +25,7 @@
                   {{ field }}
                 </div>
               {% endfor %}
-              {% for field in locationform %}
+              {% for field in profileform %}
                 <div class="field">
             {% for error in field.errors %}
       <div class="alert alert-danger">
@@ -29,3 +39,6 @@
               {% endfor %}
               <input type="submit">
 </form>
+</div>
+
+{% endblock content %}
