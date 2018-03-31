@@ -613,3 +613,23 @@ def all_startups(request):
             'startups' : start
             }
     return render(request, 'app/all_startups.html', context)
+
+def search_incubator(request):
+    q = request.GET.get('q', '')
+    if q != '':
+        inc = Incubator.objects.filter(name__icontains=q)
+        context = {
+                'profile' : inc
+                }
+        return render(request, 'app/search.html', context)
+    return render(request, 'app/searchform.html')
+
+def search_startup(request):
+    q = request.GET.get('q', '')
+    if q != '':
+        inc = Startup.objects.filter(name__icontains=q)
+        context = {
+                'profile' : inc
+                }
+        return render(request, 'app/search.html', context)
+    return render(request, 'app/searchform.html')    
