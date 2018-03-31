@@ -38,36 +38,57 @@
             message.draw();
             return $messages.animate({ scrollTop: $messages.prop('scrollHeight') }, 300);
         };
-        $('.send_message').click(function (e) {
+        $('.send_message1').click(function (e) {
             var msg = getMessageText();
-			sendMessage(msg);
+            sendMessage(msg);
             console.log(msg);
-			$.post("/bot/",
-    		{
-        		'message': msg,
-    		},
-    		function(data, status){
+            $.post("/bot/",
+            {
+              'message': msg,
+          },
+          function(data, status){
             console.log(data.message);
             return sendMessage(data.message);
-    		});
-			return 1
+        });
+            return 1
         });
         $('.message_input').keyup(function (e) {
             if (e.which === 13) {
-            var msg = getMessageText();
-			sendMessage(msg);
-            console.log(msg);
-			$.post("/bot/",
-    		{
-        		'message': msg,
-    		},
-    		function(data, status){
-            console.log(data.message);
-            return sendMessage(data.message);
-    		});
-			return 1
+                var msg = getMessageText();
+                sendMessage(msg);
+                console.log(msg);
+                $.post("/bot/",
+                {
+                  'message': msg,
+              },
+              function(data, status){
+                console.log(data.message);
+                return sendMessage(data.message);
+            });
+                return 1
                 return sendMessage(getMessageText());
             }
         });
-    });
+        var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        var recognition = new SpeechRecognition();
+        recognition.onresult = function(event) {
+            var current = event.resultIndex;
+            var transcript = event.results[current][0].transcript;
+            sendMessage(transcript);
+            $.post("/bot/",
+            {
+              'message': transcript,
+          },
+          function(data, status){
+            console.log(data.message);
+            return sendMessage(data.message);
+        });
+        }
+        $('#start-record-btn').on('click', function(e) {
+            recognition.start();
+        });
+        $('#pause-record-btn').on('click', function(e) {
+            recognition.stop();
+        });
+});
 }.call(this));
