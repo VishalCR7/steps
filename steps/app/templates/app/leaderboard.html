@@ -75,8 +75,9 @@
       <div class="leaderboard-body">
         
         <ul>
-          <!-- for loop to print top 10 -->
-          <li><a href="#">Incubator</a></li>
+          {% for inc in highest %}
+          <li><a href="#">{{inc.name}}</a></li>
+          {% endfor %}
         </ul>
         
       </div>
