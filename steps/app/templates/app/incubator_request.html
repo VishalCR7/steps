@@ -5,6 +5,10 @@
  <link href="{% static 'app/css/font-awesome.min.css' %}" rel="stylesheet">
  <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
 
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfokcmBFjX0YO4zctNyb4VuYqgHGyyLMo&callback=initMap"
+ async defer></script>
+
+
  <div class="header" style="width: 100vw; height: 200px; background-color:#673AB7">
    
  </div>
@@ -47,6 +51,7 @@
               <label for="{{ field.auto_id }}">{{ field.label_tag }}
               </label>
               {{ field }}
+
             </div>
             {% endfor %}
             <br/><hr/><br/>

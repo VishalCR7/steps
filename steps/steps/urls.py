@@ -17,9 +17,15 @@ from django.conf.urls import include,url
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
+from app.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('app.urls')),
     url(r'^', include('bot.urls')),
+    url(
+        r'^user-autocomplete/$',
+        UserAutocomplete.as_view(),
+        name='user-autocomplete',
+    ),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

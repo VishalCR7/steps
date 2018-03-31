@@ -48,6 +48,14 @@ class UserProfile(models.Model):
     def __str__(self):
         return str(self.user.username)
 
+@receiver(post_save, sender=User)
+def create_user_userProfile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_userProfile(sender, instance, **kwargs):
+    instance.userprofile.save()
 
 class Contact(models.Model):
     TYPES = (

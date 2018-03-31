@@ -126,3 +126,20 @@ class StartupAchievementForm(forms.ModelForm):
     class Meta:
         model = StartupAchievement
         fields = ['title', 'value']
+
+
+from dal import autocomplete
+
+
+class IncubatorMemberForm(forms.ModelForm):
+    class Meta:
+        model =  IncubatorMember
+        fields = ['user', 'access_level', 'role']
+        widgets = {'user' :autocomplete.ModelSelect2(url='user-autocomplete') }
+
+
+class StartupMemberForm(forms.ModelForm):
+    class Meta:
+        model = StartupMember
+        fields = ['user', 'access_level', 'role']
+        widgets = {'user' :autocomplete.ModelSelect2(url='user-autocomplete') }

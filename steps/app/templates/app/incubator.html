@@ -2,6 +2,10 @@
 {% block content %}
 {% load static%}
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfokcmBFjX0YO4zctNyb4VuYqgHGyyLMo&callback=initMap"
+ async defer></script>
+
+
 <body>
 	<header class="header navbar-fixed-top">
 		<nav class="navbar" role="navigation">
@@ -96,6 +100,7 @@
 		</div>
 	</div>
 
+	
 	<div class="overlay"></div>
 </div>
 <div class="profile">
@@ -153,8 +158,8 @@
 
 			<div class="add-event">
 				<h4>Add a new Event</h4>
-				<div class="btn-add_event btn-event">
-					<i class="material-icons">add</i>
+				<div class="btn-add_event btn-event" data-toggle="tooltip" title="Add an event">
+					<i class="material-icons">add</i> 
 				</div>
 			</div>
 		</div>
@@ -177,7 +182,12 @@
 			</div>
 			<br>
 			<div>
-				<h3>Members</h3>
+				<div class="incubator-members" style="display: flex; justify-content: space-between;">
+					<h3>Members</h3>
+					<div class="add-members btn-add_members" style="cursor: pointer;" data-toggle="tooltip" title="Add Members">
+						<i class="material-icons add_members">add_circle</i>
+					</div>
+				</div>
 				<ul>
 					{% for member in profile.members.all %}
 					<li class="startup-list">
@@ -187,6 +197,25 @@
 					{% endfor %}
 					<li class="search-startups"><p>View More...</p></li>
 				</ul>
+
+				<div class="add_member-container">
+					<h3 style="color: white;">Add member</h3>
+					<div class="row">
+						<div class="col-sm-8">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<p>Add a member to you organisation</p>
+									<form action="{% url 'app:incubator_member_add' %}" method="post">
+        								{% csrf_token %}
+        								{{ form.as_p }}
+        								<input type="submit" />
+    								</form>
+								</div>
+							</div>
+						</div>				
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -217,7 +246,7 @@
 		});
 	}
 </script>
-
+{{ form.media }}
 <script>
 
 	$(document).ready(function(){
@@ -244,12 +273,18 @@
 			$('.contact-container').show();
 		});
 
+		// add members
+		$('.btn-add_members').click(function(){
+			$('.add_member-container').toggle();
+		});
+
 		// hide overlay
 		$('.overlay').click(function(){
 			$('.overlay-toggle').hide();
 			$('.message-container').hide();
 			$('.event-container').hide();
 			$('.contact-container').hide();
+			$('.add_member-container').hide();
 		});
 	});
 
@@ -293,4 +328,7 @@
     }
   }
 </script>
+
+{{ form.media }}
+
 {% endblock %}

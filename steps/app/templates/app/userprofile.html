@@ -1,0 +1,178 @@
+{% extends 'app/base.html' %}
+{% block content %}
+{% load static%}
+
+	<style type="text/css">
+		
+		.info-startup{
+			display: inline-flex !important;
+			justify-content: space-between !important;
+			margin-top: 50px;
+		}
+
+		.incubated{
+			width: 400px;
+		}
+		.info{
+			width: 400px;
+		}
+		.about-startup{
+			width: 500px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.about-input{
+			width: 350px;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<header class="header navbar-fixed-top">
+		<nav class="navbar" role="navigation">
+			<div class="container">
+				<div class="menu-container js_nav-item">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="toggle-icon"></span>
+					</button>
+
+					<div class="logo">
+						<a class="logo-wrap" href="#body">
+							<img class="logo-img logo-img-main" src="{% static 'app/img/logofinal.png' %}" alt="FlameOnePage Logo">
+							<img class="logo-img logo-img-active" src="{% static 'app/img/logofinal.png' %}" alt="FlameOnePage Dark Logo">
+						</a>
+					</div>
+				</div>
+
+<div class="collapse navbar-collapse nav-collapse">
+          <!--div class="language-switcher">
+            <ul class="nav-lang">
+                        <li><a class="active" href="#">EN</a></li>
+              <li><a href="#">DE</a></li>
+            <li><a href="#">FR</a></li>
+            </ul>
+        </div-->
+        <div class="menu-container">
+        	<ul class="nav navbar-nav navbar-nav-right">
+        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Home</a></li>
+        		{% if not user.is_authenticated %}
+        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Compare</a></li>
+        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Leader Board</a></li>
+        		{% endif %}
+        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Add Event</a></li>
+        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Logout</a></li>
+        	</ul>
+        </div>
+    </div>
+</div>
+</nav>
+</header>
+<div class="profile">
+	<div class="cover-image col-sm-12">
+	</div>
+	<div class="profile-image col-sm-offset-1">
+	</div>
+	<div class="activitybar col-sm-12 ">
+		<ul class="list-inline activitybar-links col-sm-offset-3">
+			<li><a href="#">Incubated Startups</a></li>
+			<li><a href="#">Fundings</a></li>
+			<li><a href="#">Activities</a></li>
+		</ul>
+	</div>
+</div>
+<div class="profile-info col-sm-12">
+	<h2 class="col-sm-offset-1">{{profile.name}}</h2>
+	<p class="col-sm-10 col-sm-offset-1">
+		{{ profile.short_description }}
+	</p>
+
+<div class="info-startup">
+	<div class="col-sm-3 incubated ">
+		<h3 >Incubator</h3>
+		{% for incubator in profile.incubators.all %}
+		<div class="newscard">
+			<div class="newscard-body col-sm-offset-1">
+				<h5 class="newscard-title">{{incubator.name}}</h5>
+				<div>
+					<button class="btn-startup btn-activity">View activites</button>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+<hr>
+
+		<div class="about-startup">
+			<h3>About {{profile.name}}</h3>
+			<p class="col-sm-10 col-sm-offset-1">
+				{{profile.description}}	
+			</p>
+		</div>
+		
+		<div class="info col-sm-4">
+			<div>
+				<h3>Members</h3>
+				<ul>
+					{% for member in profile.members.all %}
+					<li class="startup-list">
+						<div class="startup-logo"></div>
+						<p class="col-sm-offset-1">{{member.username}}</p>
+					</li>
+					{% endfor %}
+					<li class="search-startups"><p>View More...</p></li>
+				</ul>
+			</div>
+		</div>
+</div>		
+	</div>
+
+</div>
+</body>
+{% endblock content %}
+
+{% block script%}
+
+<script type="text/javascript">
+  var acc = document.getElementsByClassName("newscard");
+  var i;
+  for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function() {
+      var bool=false;
+      if (this.classList.contains("newscard-active") == true){
+        bool=true;
+      }
+      for (j = 0; j < acc.length; j++){
+        if (acc[j].classList.contains("newscard-active")){
+          acc[j].classList.toggle("newscard-active");
+          var panelOpen = acc[j].nextElementSibling;
+          if (panelOpen.style.maxHeight){
+            panelOpen.style.maxHeight = null;
+          } else {
+            panelOpen.style.maxHeight = panelOpen.scrollHeight + "px";
+          }
+        }
+      }
+      var panel = this.nextElementSibling;
+      this.classList.toggle("newscard-active");
+      if (panel.style.maxHeight){
+        panel.style.maxHeight = null;
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+      if (bool == true){
+        this.classList.toggle("newscard-active");
+        if (panel.style.maxHeight){
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      }
+    }
+  }
+</script>
+{% endblock %}
+	
