@@ -68,8 +68,6 @@ admin.site.register(StartupAchievement)
 admin.site.register(StartupFile)
 
 
-admin.site.register(Room)
-admin.site.register(Link)
-admin.site.register(Message)
 admin.site.register(ConnectionRequest)
+admin.site.register(Message)
 

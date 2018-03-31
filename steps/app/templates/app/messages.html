@@ -1,0 +1,14 @@
+<div>
+	{% for req in requests %}
+		<h5>{{ req.sender.username }}</h5>
+		<p>{{ req.request_msg }}</p>
+		<a href="/chat/approve/{{req.id}}"> confirm</a>
+	{% endfor %}
+</div>
+<br><br>
+<div>
+	{% for room in rooms %}
+		<a href="/chat/room/{{room.id}}"> {{ room.get_name }} </a>
+
+	{% endfor %}
+</div>

@@ -1,0 +1,10 @@
+ <form method="post" action=".">
+                                      {% csrf_token %}
+                                        {{form}}
+                                        <button type="submit">Send</button>
+                                    </form>
+<div>
+	{% for msg in msgs %}
+	<h6>{{ msg.message }}</h6>
+	{% endfor %}
+</div>

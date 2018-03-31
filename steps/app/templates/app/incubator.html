@@ -12,10 +12,11 @@
 			<div class="col-sm-4 classol-md-4">
 	            <div class="panel panel-default">
 	                <div class="panel-body">                
-	                    <form accept-charset="UTF-8" action="" method="POST">
-	                        <textarea class="form-control counted" name="message" placeholder="Type in your message" rows="5" style="margin-bottom:10px;"></textarea>
-	                        <button class="btn btn-info" type="submit">Post New Message</button>
-	                    </form>
+	                    <form method="post" action=".">
+                            {% csrf_token %}
+                            {{message_form}}
+                            <button type="submit">Send</button>
+                        </form>
 	                </div>
 	            </div>
 	        </div>

@@ -399,30 +399,23 @@ class Comment(models.Model):
 
 
 # Models for CHAT
-class Room(models.Model):
-    room_name = models.CharField(max_length=20, unique=True)
-    links = models.ManyToManyField(User, through='Link')
-    def __str__(self):
-        return self.room_name
-
-
-class Link(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    group = models.BooleanField(default=False)
-    timestamp = models.DateTimeField(default=timezone.now, db_index=True)
-    def __str__(self):
-        return "%s [%s]" % (self.room.room_name, self.user.username)
-
-class Message(models.Model):
-    links = models.ForeignKey(Link, on_delete=models.CASCADE)
-    message = models.CharField(max_length=200)
-    deleted = models.BooleanField(default=False)
-    timestamp = models.DateTimeField(default=timezone.now, db_index=True)
 
 
 class ConnectionRequest(models.Model):
-    startup = models.ForeignKey(Startup, on_delete=models.CASCADE)
-    incubator = models.ForeignKey(Incubator, on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, related_name='request_sent', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name='request_recieved', on_delete=models.CASCADE)
     created_on = models.DateField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_TYPES, default='S')
+    request_msg = models.CharField(max_length=500, blank=True)
+    @property
+    def get_name(self):
+        return self.sender.username+'-'+self.receiver.username
+
+
+
+class Message(models.Model):
+    room = models.ForeignKey(ConnectionRequest, related_name='message', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='message', on_delete=models.CASCADE)
+    message = models.CharField(max_length=200)
+    deleted = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
