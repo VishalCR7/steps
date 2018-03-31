@@ -250,7 +250,28 @@ def startup_request(request):
     return render(request, 'app/incubator_request.html', context)
 
 def leaderboard(request):
-    return render(request, 'app/leaderboard.html')
+    inc = Incubator.objects.all()
+    a=[]
+    for i in inc:
+        aa={}
+        s = 0
+        n = 0
+        for r in i.ratings.all():
+            s=s+r.rating
+            n+=1
+        if n != 0 :
+            av = (s+0.00)/n
+        else:
+            av=0
+        aa['obj'] = i
+        aa['rat'] = av
+        a.append(aa)
+    s = sorted(a, key = lambda k:k['rat'])
+    data = map(lambda k:k['obj'], s)
+    context = {
+            'highest' : data[0:10]
+            }
+    return render(request, 'app/leaderboard.html', context)
 
 def comparator(request):
     s1 = request.GET.get('s1')
