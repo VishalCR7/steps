@@ -1,14 +1,24 @@
-<div>
-	{% for req in requests %}
-		<h5>{{ req.sender.username }}</h5>
-		<p>{{ req.request_msg }}</p>
-		<a href="/chat/approve/{{req.id}}"> confirm</a>
-	{% endfor %}
-</div>
-<br><br>
-<div>
-	{% for room in rooms %}
-		<a href="/chat/room/{{room.id}}"> {{ room.get_name }} </a>
+{% extends 'app/base.html' %}
+{% block content %}
+{% load static%}
+<link href="{% static 'app/css/update_profile.css' %}" rel="stylesheet" type="text/css"/>
 
-	{% endfor %}
+<div class="form-style-8 col-sm-" style=" position:absolute; top:100px; margin-left: 35vw;">
+	<div>
+		{% for req in requests %}
+			<h5>{{ req.sender.username }}</h5>
+			<p>{{ req.request_msg }}</p>
+			<a href="/chat/approve/{{req.id}}"> confirm</a>
+		{% endfor %}
+	</div>
+	<br><br>
+	<div>
+		{% for room in rooms %}
+			<a href="/chat/room/{{room.id}}"> {{ room.get_name }} </a>
+		{% endfor %}
+	</div>
 </div>
+
+
+
+{% endblock content %}

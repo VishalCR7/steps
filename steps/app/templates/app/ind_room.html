@@ -1,10 +1,22 @@
- <form method="post" action=".">
-                                      {% csrf_token %}
-                                        {{form}}
-                                        <button type="submit">Send</button>
-                                    </form>
-<div>
-	{% for msg in msgs %}
-	<h6>{{ msg.message }}</h6>
-	{% endfor %}
+{% extends 'app/base.html' %}
+{% block content %}
+{% load static%}
+<link href="{% static 'app/css/update_profile.css' %}" rel="stylesheet" type="text/css"/>
+
+<!-- individual room -->
+
+<div class="form-style-8 col-sm-" style=" position:absolute; top:100px; margin-left: 35vw;">
+ 	<form method="post" action=".">
+    	{% csrf_token %}
+        {{form}}
+        <button type="submit">Send</button>
+    </form>
+	<div>
+		{% for msg in msgs %}
+		<p>{{ msg.message }}</p>
+		{% endfor %}
+	</div>
 </div>
+
+
+{% endblock content %}
