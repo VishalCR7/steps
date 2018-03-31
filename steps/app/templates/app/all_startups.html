@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% load static %}
+  <title>S.T.E.P.S</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'app/css/leaderboard.css' %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet">
+  <link href="{% static 'app/css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static 'app/css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'app/css/swiper.min.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static 'app/css/layout.css' %}" rel="stylesheet" type="text/css"/>
+  <script src="{% static 'app/js/chart.min.js' %}" type="text/javascript"></script>
+
+    
+</head>
+<body>
+  <header class="header navbar-fixed-top">
+    <nav class="navbar" role="navigation">
+      <div class="container">
+        <div class="menu-container js_nav-item">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="toggle-icon"></span>
+          </button>
+
+          <div class="logo">
+            <a class="logo-wrap" href="#body">
+              <img class="logo-img logo-img-main" src="{% static 'app/img/logofinal.png' %}" alt="FlameOnePage Logo">
+              <img class="logo-img logo-img-active" src="{% static 'app/img/logofinal.png' %}" alt="FlameOnePage Dark Logo">
+            </a>
+          </div>
+        </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+
+          <!--div class="language-switcher">
+            <ul class="nav-lang">
+                        <li><a class="active" href="#">EN</a></li>
+              <li><a href="#">DE</a></li>
+            <li><a href="#">FR</a></li>
+            </ul>
+          </div--> 
+
+          <div class="menu-container">
+            <ul class="nav navbar-nav navbar-nav-right">
+              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Home</a></li>
+              {% if not user.is_authenticated %}
+              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Compare</a></li>
+              {% endif %}
+              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Profile</a></li>
+              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    {% for i in startups %}
+    {{i.name}}<br>{{i.description}}<hr><br>
+    {% endfor %}
+  </main>
+</body>
+</html>
