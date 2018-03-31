@@ -31,4 +31,8 @@ urlpatterns = [
     url(r'^reject/incubator/(?P<id>[0-9]+)/$', views.reject_incubator, name='reject_incubator'),
     url(r'^approve/incubator/(?P<id>[0-9]+)/$', views.approve_startup, name='approve_incubator'),
     url(r'^reject/incubator/(?P<id>[0-9]+)/$', views.reject_startup, name='reject_incubator'),
+    url(r'^follow/incubator/$', views.follow_incubator, name='follow_incubator'),
+    url(r'^follow/tag/$', views.follow_tags, name='follow_tags'),
+    url(r'^rate/incubator/$', views.rate_incubator, name='rate_incubator'),
+
 ]

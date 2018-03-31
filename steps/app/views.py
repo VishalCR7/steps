@@ -547,3 +547,44 @@ def reject_startup(request,id):
     startup.status = 'A'
     startup.save()
     return HttpResponseRedirect(reverse('admin:index'))
+
+
+def follow_incubator(request):
+    id = request.GET['id']
+    incubator = get_object_or_404(Incubator, pk=id)
+    ctx = {'status': 'Already present'}
+    if request.user not in incubator.followers.all():
+        incubator.followers.add(request.user)
+        ctx = {'status': 'Followed'}
+    else:
+        incubator.followers.remove(request.user)
+        ctx = {'status': 'Unfollowed'}
+    return HttpResponse(json.dumps(ctx), content_type='application/json')
+
+
+def follow_tags(request):
+    id = request.GET['id']
+    tags = get_object_or_404(Tag, pk=id)
+    ctx = {'status': 'Already present'}
+    if request.user not in tag.followers.all():
+        tag.followers.add(request.user)
+        ctx = {'status': 'Followed'}
+    else:
+        tag.followers.remove(request.user)
+        ctx = {'status': 'Unfollowed'}
+    return HttpResponse(json.dumps(ctx), content_type='application/json')
+
+
+def rate_incubator(request):
+    id = request.GET['id']
+    rating = request.GET['rating']
+    incubator = get_object_or_404(Incubator, pk=id)
+    rating_object = IncubatorRating.objects.get(incubator=incubator, user = request.user)
+    if rating_object is not None:
+        rating_object.rating = int(rating)
+        rating_object.save()
+        ctx = {'status': 'Updated'}
+    else:
+        IncubatorRating.objects.create(incubator=incubator, user = request.user, rating=rating)
+        ctx = {'status': 'Added'}
+    return HttpResponse(json.dumps(ctx), content_type='application/json')
