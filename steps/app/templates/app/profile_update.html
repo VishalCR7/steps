@@ -4,162 +4,126 @@
 <link href="{% static 'app/css/update_profile.css' %}" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="{% static 'app/css/leaderboard.css' %}">
 
-</head>
-<body style="background-color: #A9A9A9">
-	<header class="header navbar-fixed-top">
-		<nav class="navbar" role="navigation">
-			<div class="container">
-				<div class="menu-container js_nav-item">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="toggle-icon"></span>
-					</button>
-
-					<div class="logo">
-						<a class="logo-wrap" href="#body">
-							<img class="logo-img logo-img-main" src="{% static 'app/img/logofinal.png' %}" alt="FlameOnePage Logo">
-							<img class="logo-img logo-img-active" src="{% static 'app/img/logofinal.png' %}" alt="FlameOnePage Dark Logo">
-						</a>
-					</div>
-				</div>
-				<br>
-
-				<div class="collapse navbar-collapse nav-collapse">
-
-          <!--div class="language-switcher">
-            <ul class="nav-lang">
-                        <li><a class="active" href="#">EN</a></li>
-              <li><a href="#">DE</a></li>
-            <li><a href="#">FR</a></li>
-            </ul>
-        </div--> 
-
-        <div class="menu-container">
-        	<ul class="nav navbar-nav navbar-nav-right">
-        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Home</a></li>
-        		{% if not request.user.is_authenticated %}
-        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Compare</a></li>
-        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Leader Board</a></li>
-        		{% endif %}
-        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Add Event</a></li>
-        		<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Logout</a></li>
-        	</ul>
-        </div>
+<div class="profile">
+  <div class="cover-image col-sm-12" style="background-image: none;background-color: #ff6161;height: 300px;">
+  </div>
+  <div class="activitybar col-sm-12 ">
+    <div class="col-sm-offset-2 page-heading">
+      <h3 >Incubated Startups</h3>
     </div>
+  </div>
 </div>
-</nav>
-</header>
 
-<div class="form-container" style="display: flex; flex-direction: column; margin-top: 80px;">
- 
- <div class="form-style-8 col-sm-6">	
-<form method="post" action="" enctype="multipart/form-data" class="ui form">
-              {% csrf_token %}
-              <div style="text-align:center">
+<div class="profile-info col-sm-offset-1 col-sm-10">
+  <div class="form-style-8 col-sm-6"> 
+  <form method="post" action="" enctype="multipart/form-data" class="ui form">
+    {% csrf_token %}
+    <div style="text-align:center">
       <h3>Details of the Nominee</h3>
     </div>
     {% for field in form %}
-                <div class="field">
+    <div class="field">
       {% for error in field.errors %}
-        <div class="alert alert-danger">
+      <div class="alert alert-danger">
         <strong>{{ error|escape }}</strong>
-        </div>
+      </div>
       {% endfor %}
-                  <label for="{{ field.auto_id }}">{{ field.label_tag }}
-                </label>
-                  {{ field }}
-                </div>
-              {% endfor %}
-              <input type="submit">
-</form>
+      <label for="{{ field.auto_id }}">{{ field.label_tag }}
+      </label>
+      {{ field }}
+    </div>
+    {% endfor %}
+    <input type="submit">
+  </form>
 </div>
 
-  <div class="form-style-8 col-sm-6">
+<div class="form-style-8 col-sm-6">
 
-<div class="form-container" style="display: flex; flex-direction: column; margin-top: 50px;">
-	<div class="form-style-8 col-sm-6 update-cards">
-  		<h2>Contact Info Form</h2>
-  		<form>
-    	<div class="form-group">
-    		<label for="option">Contact Info</label>
-    		<select id="type_contact">
-    			<option value="Mob">Mobile</option>
-    			<option value="Email">Email</option>
-    		</select>
-  		</div>
+  <div class="form-container" style="display: flex; flex-direction: column; margin-top: 50px;">
+   <div class="form-style-8 col-sm-6 update-cards">
+    <h2>Contact Info Form</h2>
+    <form>
+      <div class="form-group">
+        <label for="option">Contact Info</label>
+        <select id="type_contact">
+          <option value="Mob">Mobile</option>
+          <option value="Email">Email</option>
+        </select>
+      </div>
 
       <div class="form-group">
         <label for="option">Contact no.</label>
         <input type="text" class="form-control" id="contact-value">
-    </div>
-
-		<div class="form-group">
-			<label for="visible">Visibility</label>
-    		<select id="visible_info">
-    			<option value="Me">Only Me</option>
-    			<option value="All">All</option>
-    			<option value="INC">Incubator</option>
-    			<option value="SU">Start ups</option>
-    			<option value="SUT">Start up team</option>
-    			<option value="INCT">Incubator Team</option>
-  			</select>
-  		</div>
-  		<button class="btn btn-info contact-btn" type="submit">Submit</button>
-	
-    	</form>
-	</div>
-
-	<div class="form-style-8 col-sm-6 update-cards">
-		<form>
-			<h2>Achievements form</h2>
-		<div class="form-group">
-			<label for="achievment">Achievement title</label>
-			<input type="text" class="form-control" id="achievement">
-		</div>
-
-		<div class="form-group">
-			<label for="achievement-value">desc</label>
-			<input type="text" class="form-control" id="achievement_value">
-		</div>
-		<button class="btn btn-info achievement-btn" type="submit">Submit</button>	
-		</form>
-	</div>	
-
-	<div class="form-style-8 col-sm-6 update-cards">
-		<form>
-			<h2>Social Info form</h2>
-		<div class="form-group">
-			<label for="visible">Contact Type</label>
-    		<select id="social-site">
-    			<option value="FB">Facebook</option>
-    			<option value="TW">Twitter</option>
-    			<option value="IN">Instagram</option>
-    			<option value="SC">Snap Chat</option>
-    			<option value="LI">Linked in</option>
-    			<option value="GH">Github</option>
-  			</select>
-  		</div>
+      </div>
 
       <div class="form-group">
-        <label for="option">Acount</label>
-        <input type="text" class="form-control" id="social-value">
-    </div>
+       <label for="visible">Visibility</label>
+       <select id="visible_info">
+         <option value="Me">Only Me</option>
+         <option value="All">All</option>
+         <option value="INC">Incubator</option>
+         <option value="SU">Start ups</option>
+         <option value="SUT">Start up team</option>
+         <option value="INCT">Incubator Team</option>
+       </select>
+     </div>
+     <button class="btn btn-info contact-btn" type="submit">Submit</button>
 
-  		<div class="form-group">
-			<label for="visible">Social Visibility</label>
-    		<select id="social-visibility">
-    			<option value="Me">Only Me</option>
-    			<option value="All">All</option>
-    			<option value="INC">Incubator</option>
-    			<option value="SU">Start ups</option>
-    			<option value="SUT">Start up team</option>
-    			<option value="INCT">Incubator Team</option>
-  			</select>
-  		</div>
-  		<button class="btn btn-info social-btn" type="submit">Submit</button>
-		</form>
-	</div>	
-</div>	
+   </form>
+ </div>
+
+ <div class="form-style-8 col-sm-6 update-cards">
+  <form>
+   <h2>Achievements form</h2>
+   <div class="form-group">
+     <label for="achievment">Achievement title</label>
+     <input type="text" class="form-control" id="achievement">
+   </div>
+
+   <div class="form-group">
+     <label for="achievement-value">desc</label>
+     <input type="text" class="form-control" id="achievement_value">
+   </div>
+   <button class="btn btn-info achievement-btn" type="submit">Submit</button> 
+ </form>
+</div>  
+
+<div class="form-style-8 col-sm-6 update-cards">
+  <form>
+   <h2>Social Info form</h2>
+   <div class="form-group">
+     <label for="visible">Contact Type</label>
+     <select id="social-site">
+       <option value="FB">Facebook</option>
+       <option value="TW">Twitter</option>
+       <option value="IN">Instagram</option>
+       <option value="SC">Snap Chat</option>
+       <option value="LI">Linked in</option>
+       <option value="GH">Github</option>
+     </select>
+   </div>
+
+   <div class="form-group">
+    <label for="option">Acount</label>
+    <input type="text" class="form-control" id="social-value">
+  </div>
+
+  <div class="form-group">
+   <label for="visible">Social Visibility</label>
+   <select id="social-visibility">
+     <option value="Me">Only Me</option>
+     <option value="All">All</option>
+     <option value="INC">Incubator</option>
+     <option value="SU">Start ups</option>
+     <option value="SUT">Start up team</option>
+     <option value="INCT">Incubator Team</option>
+   </select>
+ </div>
+ <button class="btn btn-info social-btn" type="submit">Submit</button>
+</form>
+</div>  
+
+</div>
 </body>
 
 {% endblock content %}
@@ -170,12 +134,12 @@
 		$('.contact-btn').click(function(){
 			var text1 = $("#type_contact").val();
       var text2 = $("#contact-value").val();
-			var text3 = $('#visible_info').val();
-			var args = {'contact_type': text1, 'contact_value':text2, 'visibility':text3};
-			$.get("/update_contact/", args).done(function(data){
-				console.log(data);
-			});
-		});
+      var text3 = $('#visible_info').val();
+      var args = {'contact_type': text1, 'contact_value':text2, 'visibility':text3};
+      $.get("/update_contact/", args).done(function(data){
+        console.log(data);
+      });
+    });
 
 		$('.achievement-btn').click(function(){
 			var text1 = $("#achievement").val();
@@ -189,12 +153,12 @@
 		$('.social-btn').click(function(){
 			var text1 = $('#social-site').val();
       var text2 = $('#social-value').val();
-			var text3 = $('#social-visibility').val();
-			var args = {'social_type': text1,'social_value':text2, 'visibility ':text3};
-			$.get("/update_social/", args).done(function(data){
-				console.log(data);
-			});
-		});
+      var text3 = $('#social-visibility').val();
+      var args = {'social_type': text1,'social_value':text2, 'visibility ':text3};
+      $.get("/update_social/", args).done(function(data){
+        console.log(data);
+      });
+    });
 
 	})
 </script>
