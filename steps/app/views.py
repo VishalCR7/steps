@@ -200,6 +200,7 @@ def incubator_request(request):
             context = {
                 'status': 'success'
             }
+            return HttpResponseRedirect(reverse('app:dashboard'))
         else:
             context = {
                 'status': 'error',
@@ -238,8 +239,9 @@ def startup_request(request):
             file.startup = startup
             file.save()
             context = {
-                status: 'success'
+                'status': 'success'
             }
+            return HttpResponseRedirect(reverse('app:dashboard'))
         else:
             context = {
                 'status': 'error',
@@ -430,7 +432,7 @@ def user_update(request):
         user = request.user
         profile = UserProfile.objects.get(user=user)
         userform = UserForm(request.POST, instance=user)
-        profileform = UserProfileForm(request.POST, instance=profile)
+        profileform = UserProfileForm(request.POST, request.FILES, instance=profile)
         if userform.is_valid() and profileform.is_valid():
             userform.save()
             f = profileform.save(commit=False)
@@ -440,7 +442,7 @@ def user_update(request):
             'userform'  : userform,
             'profileform': profileform
             }
-            return HttpResponseRedirect(reverse('app:user_update'))
+            return HttpResponseRedirect(reverse('app:dashboard'))
         else :
             context = {
             'userform'  : userform,
