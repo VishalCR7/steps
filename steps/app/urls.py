@@ -34,5 +34,6 @@ urlpatterns = [
     url(r'^add/startup/$', views.startup_member_add, name='startup_member_add'),
     url(r'^all/incubators/$', views.all_incubators, name='all_incubators'),
     url(r'^all/startups/$', views.all_startups, name='all_startups'),
-
+    url(r'^search/startups/$', views.search_startup, name='search_startup'),
+    url(r'^search/incubators/$', views.search_incubator, name='search_incubator'),
 ]
