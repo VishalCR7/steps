@@ -6,9 +6,9 @@ from app.views import *
 
 app_name = 'app'
 urlpatterns = [
-    url(r'^$', auth_views.login, name='login', kwargs={'redirect_authenticated_user': True}),
+    url(r'^login/$', auth_views.login, name='login', kwargs={'redirect_authenticated_user': True}),
     url(r'^logout/$', auth_views.logout,{'next_page': '/'}, name='logout'),
-    url(r'^index/$', views.index, name='index'),
+    url(r'^$', views.index, name='index'),
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
     #url(r'^incubator/$', views.incubator, name='incubator'),
     url(r'^leaderboard/$', views.leaderboard, name='leaderboard'),

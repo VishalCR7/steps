@@ -709,7 +709,7 @@ fieldset[disabled] .btn-theme {
   font-size: 13px;
   font-weight: 600;
   font-family: Hind, sans-serif;
-  color: #fff;
+  color: #199ddd !important;
   text-transform: uppercase;
   line-height: 55px;
   padding: 20px;

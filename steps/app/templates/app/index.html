@@ -34,13 +34,19 @@
           
           <div class="menu-container">
             <ul class="nav navbar-nav navbar-nav-right">
-              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Skip to Main Content</a></li>
               {% if not user.is_authenticated %}
-              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Login</a></li>
-              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Register</a></li>
+              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'app:login'%}">Login</a></li>
+              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'app:signup'%}">Register</a></li>
               {% endif %}
-              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Register as a user</a></li>
-              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="">Login</a></li>
+              {% if user.is_authenticated %}/
+              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'app:dashboard'%}">Dashboard</a></li>
+              {% endif %}
+              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'app:leaderboard'%}">Leaderboard</a></li>
+              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'app:comparator'%}">Comparator</a></li>
+              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#aboutus">About us</a></li>
+              {% if user.is_authenticated %}/
+              <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'app:logout'%}">Logout</a></li>
+              {% endif %}
             </ul>
           </div>
         </div>
@@ -65,7 +71,12 @@
               <h1 class="carousel-title dd">Incubate your dreams</h1>
               <p class="color-white dd1">Startup and Technical Entrepreneruship Platform Support<br/>Helps high potential startups scale and get discovered by a network of incubators, entrepreneur and other influencers </p>
             </div>
-            <a href="" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Register with us</a>
+            {% if  user.is_authenticated %}
+              <a href="{% url 'app:dashboard'%}" class="btn-theme btn-theme-sm btn-white-brd text-uppercase" style="color: #418193;border-color: #418193;">Dashboard</a>
+            {% endif %}
+            {% if not user.is_authenticated %}
+              <a href="{% url 'app:signup'%}" class="btn-theme btn-theme-sm btn-white-brd text-uppercase" style="color: #418193;border-color: #418193;">Register with us</a>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -77,7 +88,12 @@
               <h2 class="carousel-title">Want incubation? </h2>
               <p class="color-white"> Directly pitch your product to experienced incubators<br/> Better market your products by utilizing the considerable infrastucture that the incubators have to offer</p>
             </div>
-            <a href="#" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Register with us</a>
+            {% if  user.is_authenticated %}
+              <a href="{% url 'app:dashboard'%}" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Dashboard</a>
+            {% endif %}
+            {% if not user.is_authenticated %}
+              <a href="{% url 'app:signup'%}" class="btn-theme btn-theme-sm btn-white-brd text-uppercase" >Register with us</a>
+            {% endif %}          
           </div>
         </div>
       </div>
@@ -120,7 +136,7 @@
     </div>
 
     <div id="products">
-      <div class="content-lg container">
+      <div class="content-lg container" style="padding-top: 0">
         <div class="row margin-b-40">
           <div class="col-sm-6">
             <h2>How This Works</h2>
@@ -143,7 +159,7 @@
       </div>
     </div>
 
-    <div class="aboutus">
+    <div class="aboutus" id="aboutus">
       <div class="content-lg container">
         <div class="row">
           <div class="col-md-5 col-sm-5 md-margin-b-60">
@@ -237,7 +253,7 @@
                 <h3>Register a team</h3>
                 <p class="margin-b-5">Upload your ideas here.</p>
               </div>
-              <a href="#" class="content-wrapper-link"></a>    
+              <a href="{% url 'app:signup'%}" class="content-wrapper-link"></a>    
             </div>
           </div>
           <div class="col-sm-4 sm-margin-b-2">
@@ -249,7 +265,7 @@
                 <h3 class="color-white">Explore Incubators</h3>
                 <p class="color-white margin-b-5">View from the range of diverse oppurtunities</p>
               </div>
-              <a href="#" class="content-wrapper-link"></a>    
+              <a href="/all/incubators" class="content-wrapper-link"></a>    
             </div>
           </div>
           <div class="col-sm-4">
@@ -261,7 +277,7 @@
                 <h3>Know more about S.T.E.P.S</h3>
                 <p class="margin-b-5">Know about the idea behind S.T.E.P.S</p>
               </div>
-              <a href="#" class="content-wrapper-link"></a>    
+              <a href="/aboutus" class="content-wrapper-link"></a>    
             </div>
           </div>
         </div>
@@ -283,12 +299,12 @@
       <h2>STEPS</h2>
 
       <p class="footer-links">
-        <a href="">Home</a>
+        <a href="{% url 'app:index'%}">Home</a>
         ·
 
-        <a href="">Login</a>
+        <a href="{% url 'app:login'%}">Login</a>
         ·
-        <a href="">Register</a>
+        <a href="{% url 'app:signup'%}">Register</a>
         ·
         <a href="">About</a>
       </p>
@@ -311,7 +327,7 @@
 
       <div>
         <i class="fa fa-envelope"></i>
-        <p><a href="mailto:yell0wfl4shh@gmail.com">yell0wfl4sh@gmail.com</a></p>
+        <p><a href="mailto:steps@gmail.com">yell0wfl4sh@gmail.com</a></p>
       </div>
 
     </div>   
