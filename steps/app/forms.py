@@ -143,3 +143,15 @@ class StartupMemberForm(forms.ModelForm):
         model = StartupMember
         fields = ['user', 'access_level', 'role']
         widgets = {'user' :autocomplete.ModelSelect2(url='user-autocomplete') }
+
+
+class ConnectionRequestForm(forms.ModelForm):
+    class Meta:
+        model = ConnectionRequest
+        fields = ['receiver', 'request_msg']
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['message']
