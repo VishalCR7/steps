@@ -1,12 +1,8 @@
- {% load static %}
- <link rel="stylesheet" type="text/css" href="{% static 'app/css/leaderboard.css' %}">
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
- rel="stylesheet">
- <link href="{% static 'app/css/font-awesome.min.css' %}" rel="stylesheet">
- <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+{% extends 'app/base.html' %}
+{% block content %}
+{% load static%}
 
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfokcmBFjX0YO4zctNyb4VuYqgHGyyLMo&callback=initMap"
- async defer></script>
+<link rel="stylesheet" type="text/css" href="{% static 'app/css/leaderboard.css' %}">
 
 <style>
   #map{
@@ -18,19 +14,22 @@
  }
 </style>
 
- <div class="header" style="width: 100vw; height: 200px; background-color:#673AB7">
-   
- </div>
- 
+<div class="profile">
+  <div class="cover-image col-sm-12" style="background-image: none;background-color: #ff6161;height: 300px;">
+  </div>
+  <div class="activitybar col-sm-12 ">
+    <div class="col-sm-offset-2 page-heading">
+      <h3 >Incubated Startups</h3>
+    </div>
+  </div>
+</div>
+
  <section class="content" >
-  <div class="ui container col-sm-6 col-sm-offset-3" style="box-shadow:  0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02); position: absolute; top:100px; background-color: white; margin-bottom: 50px; color:#0D1825; padding-bottom: 10px;">
+  <div class="ui container col-sm-6 col-sm-offset-3" style="box-shadow:  0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02); top:60px; background-color: white; margin-bottom: 50px; color:#0D1825; padding-bottom: 10px;">
     <div class="ui grid">
 
 
       <div class="twelve wide column">
-        <h2 class="ui top attached block header" style="text-align:center">
-          Register as Type_to_Register
-        </h2>
         <div class="distinguishedForm">
           {% if status != 'Success' %}
           <form method="post" action="" enctype="multipart/form-data" class="ui form">
@@ -94,7 +93,8 @@
     </div>
   </div>
   </section>
-
+{% endblock content %}
+{% block script %}
   <script>
     var map;
     function initMap(){
@@ -125,3 +125,4 @@ try search feature
   */
     }
   </script>
+{% endblock %}
