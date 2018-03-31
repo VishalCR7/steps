@@ -74,3 +74,7 @@
 .update-cards{
     width: 400px;
 }
+.profile-info{
+    display: flex;
+    flex-direction: column;
+}
