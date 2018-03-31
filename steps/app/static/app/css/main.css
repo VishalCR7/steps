@@ -253,3 +253,10 @@ ul li a:hover::after{
 .page-heading h3{
 	margin: 0;
 }
+.generic-back{
+	background-image: url("../img/cover-gen.jpg") !important;
+	background-position: center;
+	background-size: cover;
+	background-color: #ff6161;
+	height: 300px;
+}
